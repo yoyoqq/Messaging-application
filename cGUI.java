@@ -1,4 +1,3 @@
-package COMP1549;
 import javax.swing.*;
 import java.awt.*;
 
