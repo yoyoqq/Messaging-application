@@ -1,3 +1,4 @@
+package Progress;
 import java.io.*;
 import java.net.*;
 
@@ -23,5 +24,6 @@ public class EchoClient {
         in.close();
         out.close();
         // stdIn.close();
+        
     }
 } 
