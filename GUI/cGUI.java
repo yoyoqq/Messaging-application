@@ -1,3 +1,4 @@
+package COMP1549.GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.FlowLayout;
