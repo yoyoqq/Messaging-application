@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class cGUI implements ActionListener {
+public class cGUI { /*implements ActionListener {*/
 
     //constructor
     public cGUI() {
@@ -61,7 +61,7 @@ public class cGUI implements ActionListener {
         panel.add(pwTf);
         // sign in button
         siButton.setBounds(10, 80, 80, 25);
-        siButton.addActionListener(new cGUI());
+        //siButton.addActionListener(new cGUI());
         panel.add(siButton);
         // sign up button
         suButton.setBounds(100, 80, 80, 25);
@@ -75,10 +75,10 @@ public class cGUI implements ActionListener {
         new cGUI();
     }
 
-    @Override
+   /* @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         System.out.println("Signed In Succesfully");
 
-    }
+    }*/
 }
