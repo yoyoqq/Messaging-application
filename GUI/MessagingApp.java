@@ -2,14 +2,18 @@ package COMP1549.GUI;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class MessagingApp extends JFrame {
 
     private JTextField inputField;
     private JButton sendButton;
 
+
+
+
     public MessagingApp() {
         // set the frame properties
-        setTitle("Messaging App");
+        setTitle("JJJYN Messenger");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 600);
 
