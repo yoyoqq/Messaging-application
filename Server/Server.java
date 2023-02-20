@@ -1,4 +1,4 @@
-package Server;
+package COMP1549.Server;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
