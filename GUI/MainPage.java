@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 public class MainPage extends JFrame {
 
-    JFrame frame;
+    private JFrame frame;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton signUpButton;
@@ -28,12 +28,12 @@ public class MainPage extends JFrame {
 
 
         // create the UI components
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel usernameLabel = new JLabel("User ID:");
         JLabel passwordLabel = new JLabel("Password:");
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
-        signInButton = new JButton("Sign Up");
-        signUpButton = new JButton("Sign In");
+        signUpButton = new JButton("Sign Up");
+        signInButton = new JButton("Sign In");
         backgroundImage = new ImageIcon(this.getClass().getResource("/views.jpeg"));
         displayField = new JLabel(backgroundImage);
         frame.add(displayField);
@@ -41,26 +41,34 @@ public class MainPage extends JFrame {
 
 
         // add action listener to sign up button
-        signInButton.addActionListener(new ActionListener() {
+        signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if(e.getSource()==signUpButton) {
+                    frame.dispose();
+                    SignUpPage signUpPage = new SignUpPage();
+                    frame.dispose();
+                }
+
                 // handle sign up functionality here
                 // get the username and password fields' values
-                String username = usernameField.getText();
-                char[] password = passwordField.getPassword();
+                //String username = usernameField.getText();
+                //char[] password = passwordField.getPassword();
                 // perform any necessary verification or validation here
                 // add user to database or perform other necessary functionality
             }
         });
 
         // add action listener to sign up button
-        signUpButton.addActionListener(new ActionListener() {
+        signInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // handle sign up functionality here
                 // get the username and password fields' values
-                String username = usernameField.getText();
-                char[] password = passwordField.getPassword();
+                //String username = usernameField.getText();
+                //char[] password = passwordField.getPassword();
                 // perform any necessary verification or validation here
                 // add user to database or perform other necessary functionality
             }
