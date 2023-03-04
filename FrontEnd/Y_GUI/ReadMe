@@ -1,0 +1,14 @@
+User graphical interface
+
+Have 3 different components. 
+    Friend list
+    Chat
+    Writer
+
+Make a dynamic interaction using TCP.
+
+
+References: 
+    https://www.guru99.com/java-swing-gui.html
+
+    panel, frame, window, lable, list, table, slider, menu, button

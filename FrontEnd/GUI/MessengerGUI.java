@@ -1,4 +1,6 @@
-package ChatApp.GUI;
+
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,7 +23,7 @@ public class MessengerGUI extends JFrame implements ActionListener {
         sendButton = new JButton("Send");
         sendButton.addActionListener(this);
 
-        //Add components to the frame
+        // Add components to the frame
         JPanel panel = new JPanel();
         panel.add(new JScrollPane(chatArea));
         panel.add(messageField);
@@ -29,7 +31,7 @@ public class MessengerGUI extends JFrame implements ActionListener {
         this.add(panel);
         this.pack();
 
-        //Set up the networking
+        // Set up the networking
         try {
             socket = new Socket("localhost", 8080); // Change the IP and port as needed
             out = new PrintWriter(socket.getOutputStream(), true);
@@ -67,4 +69,4 @@ public class MessengerGUI extends JFrame implements ActionListener {
         messengerGUI.setVisible(true);
         messengerGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    }
+}
