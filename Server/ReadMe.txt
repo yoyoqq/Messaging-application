@@ -19,7 +19,6 @@ API:
     DELETE -> DELETE
 
 
-
     ex:
         POST/URL/authorization/JSON(data)
                 name: "yagol"
