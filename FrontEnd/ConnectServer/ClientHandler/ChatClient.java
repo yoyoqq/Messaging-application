@@ -1,4 +1,5 @@
-package User.ClientHandler;
+package ClientHandler;
+// package ConnectServer.ClientHandler;
 
 import java.net.*;
 import java.io.*;
@@ -7,23 +8,29 @@ import java.io.*;
  * This is the chat client program.
  */
 public class ChatClient {
-    private String hostname;
-    private int port;
-    private String userName;
+    // User data
+    // private int ID;
+    public String userName;
+    public String hostName;
+    public int port;
+    // private InetAddress addr;
 
-    public ChatClient(String hostname, int port) {
-        this.hostname = hostname;
+    public ChatClient(String userName, String hostName, int port) {
+        this.userName = userName;
+        this.hostName = hostName;
         this.port = port;
     }
 
     public void execute() {
         try {
-            Socket socket = new Socket(hostname, port);
+            Socket socket = new Socket(hostName, port);
+            // addr = socket.getInetAddress();
+            // System.out.println("this is your data" + ID + " " + hostname + " "+ port +" "
+            // + userName +" "+ addr);
+            // InetAddress addr = socket.getInetAddress();
+            // System.out.println("connected to ip " + addr);
 
-            InetAddress addr = socket.getInetAddress();
-            System.out.println("connected to ip " + addr);
-
-            System.out.println("Connected to the chat server");
+            // System.out.println("Connected to the chat server");
 
             new ReadThread(socket, this).start();
             new WriteThread(socket, this).start();
@@ -35,28 +42,11 @@ public class ChatClient {
         }
     }
 
-    void setUserName(String userName) {
-        this.userName = userName;
-    }
+    // void setUserName(String userName) {
+    // this.userName = userName;
+    // }
 
-    String getUserName() {
-        return this.userName;
-    }
-
-    public static void main(String[] args) {
-        // if (args.length < 2)
-        // return;
-
-        // String hostname = args[0];
-        // int port = Integer.parseInt(args[1]);
-
-        String hostname = "127.0.0.1";
-        int port = 1234;
-
-        // String hostname = "127.0.0.2";
-        // int port = 1234;
-
-        ChatClient client = new ChatClient(hostname, port);
-        client.execute();
+    public String getUserName() {
+        return userName;
     }
 }

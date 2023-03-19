@@ -1,13 +1,13 @@
-package User;
+// package ConnectServer;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 
-import Server.Database.GroupChat;
+// import Server.Database.GroupChat;
 
-public class Caching {
-    ArrayList<GroupChat> chats = new ArrayList<>();
+// public class Caching {
+// ArrayList<GroupChat> chats = new ArrayList<>();
 
-    public Caching() {
-        chats = new ArrayList<>();
-    }
-}
+// public Caching() {
+// chats = new ArrayList<>();
+// }
+// }

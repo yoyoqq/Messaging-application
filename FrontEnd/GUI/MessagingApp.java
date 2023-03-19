@@ -1,4 +1,4 @@
-package COMP1549.GUI;
+package GUI;
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,8 +1,5 @@
-package COMP1549.GUI;
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
+package GUI;
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
