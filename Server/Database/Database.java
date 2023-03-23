@@ -15,7 +15,6 @@ public class Database implements Data {
     static Statement stmt = null;
 
     public Database() {
-        putUser("Server", "0", 0);
         // createDatabase();
         // createData(); // mock data
     }
@@ -188,19 +187,27 @@ public class Database implements Data {
 
     public void putGroupChat(int coordinator) {
         try {
+            int last_generated_key = -1;
             Class.forName(className);
             c = DriverManager.getConnection(url);
             c.setAutoCommit(false);
 
             try (Connection conn = DriverManager.getConnection(url);
-                    PreparedStatement pstmt = conn.prepareStatement("INSERT INTO GROUPCHAT (COORDINATOR) VALUES(?)")) {
+                    PreparedStatement pstmt = conn.prepareStatement("INSERT INTO GROUPCHAT (COORDINATOR) VALUES(?)",
+                            PreparedStatement.RETURN_GENERATED_KEYS)) {
                 pstmt.setInt(1, coordinator);
                 pstmt.executeUpdate();
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    last_generated_key = rs.getInt(1);
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
             c.commit();
             c.close();
+            // add user to the groupchat
+            putUserInGroups(coordinator, last_generated_key);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -338,12 +345,14 @@ public class Database implements Data {
         // create user in groups
         db.putUserInGroups(1, 4);
         db.putUserInGroups(2, 2);
+        db.putUserInGroups(1, 1);
+        db.putUserInGroups(2, 1);
         db.putUserInGroups(3, 1);
-        db.putUserInGroups(4, 3);
+        db.putUserInGroups(4, 1);
         db.putUserInGroups(3, 2);
         db.putUserInGroups(2, 1);
         db.putUserInGroups(1, 1);
-        db.putUserInGroups(4, 2);
+        db.putUserInGroups(6, 1);
 
         // messages
         db.putMessage(1, 2, "12:20", "hi");
@@ -398,6 +407,41 @@ public class Database implements Data {
             System.exit(0);
         }
         return users;
+    }
+
+    String getGroupChats() {
+        String groupChats = "";
+        try {
+            // Establish the database connection
+            Connection conn = DriverManager.getConnection(url);
+
+            // Create a statement object
+            Statement stmt = conn.createStatement();
+
+            // Execute the query to get all data from the user table
+            ResultSet rs = stmt.executeQuery("SELECT * FROM GROUPCHAT");
+
+            // Loop through the result set and create User objects
+            while (rs.next()) {
+                int groupchat_id = rs.getInt("GROUPCHAT_ID");
+                int coordinator = rs.getInt("COORDINATOR");
+
+                // formatter
+                if (groupChats.length() == 0) {
+                    groupChats += groupchat_id + ":" + coordinator;
+                } else {
+                    groupChats += "/" + groupchat_id + ":" + coordinator;
+                }
+            }
+            // Close the result set, statement, and connection
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return groupChats;
     }
 
     String getCoordinator(int groupChat_ID) {
@@ -792,15 +836,37 @@ public class Database implements Data {
         updateDeleteMessageState(user_ID);
     }
 
+    String updadateCoordinator(int groupchat_id, int coordinator) {
+        try {
+            // Establish the database connection
+            Connection conn = DriverManager.getConnection(url);
+            // Create a statement object
+            Statement stmt = conn.createStatement();
+            // Execute the query to get all data from the user table
+            String command = "UPDATE GROUPCHAT SET COORDINATOR = " + coordinator + " WHERE GROUPCHAT_ID = "
+                    + groupchat_id;
+            stmt.executeUpdate(command);
+            stmt.close();
+            conn.close();
+            return "Groupchat: " + groupchat_id + " ,coordinator changed to: " + coordinator;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+            return "null";
+        }
+    }
+
     public static void main(String[] args) {
         Database db = new Database();
-        createDatabase();
-        createData(db);
+        // String a = db.updadateCoordinator(13, 123);
+        // createDatabase();
+        // createData(db);
         // getData(db);
 
         // deleteUser(1, "user 1 leaving the chat");
 
         // String a = putUser("yagol", "12341234", 1234);
         // System.out.println(a);
+        // db.putGroupChat(123);
     }
 }

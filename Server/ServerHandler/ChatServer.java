@@ -13,10 +13,12 @@ public class ChatServer {
     private int port;
     private InetAddress address;
     DatabaseProxy proxy = DatabaseProxy.getInstance(); // create instance of the singleton database
-    private HashSet<UserThread> userThreads = new HashSet<>();
+    static HashSet<UserThread> userThreads = new HashSet<>();
+    Coordinator coordinator;
 
     public ChatServer(int port) {
         this.port = port;
+        // coordinator = new Coordinator();
     }
 
     // Run server
@@ -47,7 +49,7 @@ public class ChatServer {
      * Delivers a message from one user to others (broadcasting)
      */
     void broadcast(String message, UserThread excludeUser) {
-        for (UserThread aUser : this.userThreads) {
+        for (UserThread aUser : ChatServer.userThreads) {
             if (aUser != excludeUser) {
                 aUser.sendMessage(message);
             }

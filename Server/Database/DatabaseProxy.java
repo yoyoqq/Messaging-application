@@ -41,7 +41,7 @@ public class DatabaseProxy implements Data {
      * Select who's gonna be the next coordinator
      */
     public void putGroupChat(int coordinator) {
-        getDatabase().putGroupChat(coordinator);
+        getDatabase().putGroupChat(coordinator); // create groupchat and assign to it
     }
 
     /*
@@ -70,6 +70,10 @@ public class DatabaseProxy implements Data {
      */
     public String getUsers() {
         return getDatabase().getUsers();
+    }
+
+    public String getGroupChats() {
+        return getDatabase().getGroupChats();
     }
 
     /*
@@ -124,8 +128,12 @@ public class DatabaseProxy implements Data {
     }
 
     // delete user from database and notify all the members
-    public void deleteUser(int user_ID, String message) {
-        getDatabase().deleteUser(user_ID, message);
+    // public void deleteUser(int user_ID, String message) {
+    // getDatabase().deleteUser(user_ID, message);
+    // }
+
+    public String updateCoordinator(int groupChat_ID, int user_ID) {
+        return getDatabase().updadateCoordinator(groupChat_ID, user_ID);
     }
 
     // other methods and properties here
