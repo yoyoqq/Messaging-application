@@ -10,13 +10,16 @@ How to run:
     java Server/ClientHandler/ChatClient localhost 1234
 
     java User/ClientHandler/ChatClient 127.16.0.1 1234
-    java User/ClientHandler/ChatClient 127.16.0.1 1234
+    java User/ClientHandler/ChatClient 127.16.0.2 1234
+    
+    java FrontEnd/ConnectServer/ClientHandler/ChatClient 127.16.0.1 1234
 
 API:
     GET -> READ
     POST -> CREATE
     PUT -> UPDATE
     DELETE -> DELETE
+
 
 
     ex:
@@ -53,3 +56,4 @@ inputStreamReader = new InputStreamReader(socket.getInputStream());
 outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
 bufferedReader = new BufferedReader(inputStreamReader);
 bufferedWriter = new BufferedWriter(outputStreamWriter);
+// FOR SERVER ADD serverSocket

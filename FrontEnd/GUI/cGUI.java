@@ -1,14 +1,14 @@
-package COMP1549.GUI;
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+// import java.awt.FlowLayout;
+// import java.awt.event.ActionEvent;
+// import java.awt.event.ActionListener;
 
+public class cGUI { /* implements ActionListener { */
 
-public class cGUI { /*implements ActionListener {*/
-
-    //constructor
+    // constructor
     public cGUI() {
         // JButton object - for buttons on the GUI
         JButton siButton = new JButton("Sign In");
@@ -17,7 +17,6 @@ public class cGUI { /*implements ActionListener {*/
         // JTextField object - for text input on the GUI
         JTextField userTf = new JTextField(20);
         userTf.setBounds(100, 20, 165, 25);
-
 
         // JFrame object - main window
         JFrame frame = new JFrame("Client GUI");
@@ -37,13 +36,13 @@ public class cGUI { /*implements ActionListener {*/
         panel.setBackground(Color.ORANGE);
         panel.setLayout(null);
         // JPanel object - size of window
-        //JPanel p = new JPanel();
+        // JPanel p = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         // brings the panel to the front of the frame
-        //panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        // panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         panel.add(siButton);
-        //brings the button "send" to the bottom of the gui
-        //panel.add(button,BorderLayout.SOUTH);
+        // brings the button "send" to the bottom of the gui
+        // panel.add(button,BorderLayout.SOUTH);
 
         // Label "username"
         JLabel unLabel = new JLabel("Username");
@@ -62,24 +61,17 @@ public class cGUI { /*implements ActionListener {*/
         panel.add(pwTf);
         // sign in button
         siButton.setBounds(10, 80, 80, 25);
-        //siButton.addActionListener(new cGUI());
+        // siButton.addActionListener(new cGUI());
         panel.add(siButton);
         // sign up button
         suButton.setBounds(100, 80, 80, 25);
         panel.add(suButton);
 
-
         frame.setVisible(true);
 
     }
+
     public static void main(String[] args) {
         new cGUI();
     }
-
-   /* @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        System.out.println("Signed In Succesfully");
-
-    }*/
 }

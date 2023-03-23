@@ -1,14 +1,15 @@
-package User.ClientHandler;
+package ClientHandler;
+// package ConnectServer.ClientHandler;
 
 import java.io.*;
 import java.net.*;
+// import java.util.Scanner;
 
 /**
  * This thread is responsible for reading user's input and send it
  * to the server.
  * It runs in an infinite loop until the user types 'bye' to quit.
  *
- * @author www.codejava.net
  */
 public class WriteThread extends Thread {
     private PrintWriter writer;
@@ -31,15 +32,24 @@ public class WriteThread extends Thread {
     public void run() {
 
         Console console = System.console();
+        // Scanner sc = new Scanner(System.in);
+        // String userName = console.readLine("\nEnter your name: ");
+        // client.setUserName(userName);
+        // writer.println(userName);
+        // writer.println(socket.getInetAddress().getAddress());
 
-        String userName = console.readLine("\nEnter your name: ");
-        client.setUserName(userName);
-        writer.println(userName);
+        // Send user data to the server -> name/ip/port
+        String userData = client.userName + "/" + client.hostName + "/" + client.port;
+        // System.out.println(userData);
+        // writer.write(userData);
+        // writer.flush();
+        writer.println(userData);
 
         String text;
 
         do {
-            text = console.readLine("[" + userName + "]: ");
+            // text = console.readLine("[" + client.getUserName() + "]: ");
+            text = console.readLine();
             writer.println(text);
 
         } while (!text.equals("bye"));

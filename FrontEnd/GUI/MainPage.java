@@ -1,10 +1,10 @@
-package COMP1549.GUI;
+package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Graphics;
-import java.awt.Image;
+// import java.awt.Graphics;
+// import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -47,7 +47,7 @@ public class MainPage extends JFrame {
 
                 if(e.getSource()==signUpButton) {
                     frame.dispose();
-                    SignUpPage signUpPage = new SignUpPage();
+                    // SignUpPage signUpPage = new SignUpPage();
                     frame.dispose();
                 }
 

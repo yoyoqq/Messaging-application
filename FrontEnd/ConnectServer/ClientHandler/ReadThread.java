@@ -1,4 +1,5 @@
-package User.ClientHandler;
+package ClientHandler;
+// package ConnectServer.ClientHandler;
 
 import java.io.*;
 import java.net.*;
@@ -28,15 +29,18 @@ public class ReadThread extends Thread {
     }
 
     public void run() {
+        String response;
+
         while (true) {
             try {
-                String response = reader.readLine();
-                System.out.println("\n" + response);
+                response = reader.readLine();
+                // System.out.println("\n" + response);
+                System.out.println(response);
 
                 // prints the username after displaying the server's message
-                if (client.getUserName() != null) {
-                    System.out.print("[" + client.getUserName() + "]: ");
-                }
+                // if (client.getUserName() != null) {
+                // System.out.print("[" + client.getUserName() + "]: ");
+                // }
             } catch (IOException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());
                 ex.printStackTrace();
