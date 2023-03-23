@@ -150,7 +150,7 @@ public class Database implements Data {
         createMessageStateTable();
     }
 
-    public String putUser(String name, String ip, Integer port) {
+    String putUser(String name, String ip, Integer port) {
         // error handler
         if (name.equals("Server") || ip.equals("0") || port.equals(0)) {
             return "null";
@@ -182,6 +182,39 @@ public class Database implements Data {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
             return null;
+        }
+    }
+
+    // look if user exists in database
+    String findUser(String name, String ip, Integer port) {
+        String data = "-1";
+        int user_id = -1;
+        try {
+            Class.forName(className);
+            c = DriverManager.getConnection(url);
+            String command = "SELECT USER_ID FROM USER WHERE NAME = ? AND IP = ? AND PORT = ? LIMIT 1";
+            c.setAutoCommit(false);
+            try (PreparedStatement pstmt = c.prepareStatement(command)) {
+                pstmt.setString(1, name);
+                pstmt.setString(2, ip);
+                pstmt.setInt(3, port);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    user_id = rs.getInt("USER_ID");
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+            c.commit();
+            c.close();
+            if (Integer.toString(user_id).equals("-1")) {
+                return "-1";
+            }
+            return Integer.toString(user_id) + " " + name + " " + ip + " " + port;
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+            return "-1";
         }
     }
 
@@ -856,8 +889,32 @@ public class Database implements Data {
         }
     }
 
+    void updateMessageState(int groupchat_id, int user_ID) {
+        // for all the messages mark as read
+        try {
+            // Establish the database connection
+            Connection conn = DriverManager.getConnection(url);
+            // Create a statement object
+            Statement stmt = conn.createStatement();
+            // Execute the query to get all data from the user table
+            String command = "UPDATE MESSAGESTATE SET MESSAGE_STATE = " + true + " WHERE GROUPCHAT_ID = " + groupchat_id
+                    + " AND USER_ID = " + user_ID;
+            stmt.executeUpdate(command);
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
     public static void main(String[] args) {
         Database db = new Database();
+        db.updateMessageState(1, 1);
+
+        // String a = db.findUser("bob", "10.0.0.1", 9876);
+        // System.out.println(a);
+
         // String a = db.updadateCoordinator(13, 123);
         // createDatabase();
         // createData(db);

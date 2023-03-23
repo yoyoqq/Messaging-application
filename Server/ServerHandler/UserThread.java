@@ -122,6 +122,9 @@ public class UserThread extends Thread {
         writer.println(message);
     }
 
+    int getID() {
+        return this.user_id;
+    }
     // String getDate() {
     // Date date = new Date(); // create a new Date object with the current date and
     // time

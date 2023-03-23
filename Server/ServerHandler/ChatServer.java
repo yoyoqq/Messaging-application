@@ -18,7 +18,7 @@ public class ChatServer {
 
     public ChatServer(int port) {
         this.port = port;
-        // coordinator = new Coordinator();
+        coordinator = new Coordinator(this.proxy);
     }
 
     // Run server

@@ -2,6 +2,8 @@ package Server.ServerHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import Server.Database.Database;
 import Server.Database.DatabaseProxy;
 
 public class API {
@@ -121,7 +123,7 @@ public class API {
                     case "messages":
                         try {
                             int groupChat_ID = Integer.parseInt(message[3]);
-                            String messages = this.proxy.getMessage(groupChat_ID);
+                            String messages = this.proxy.getMessage(groupChat_ID, this.user_id);
                             // writer.println(messages);
                             return messages;
                         } catch (Exception e) {
@@ -167,6 +169,13 @@ public class API {
     }
 
     public static void main(String[] args) {
+        DatabaseProxy proxy = DatabaseProxy.getInstance();
+        String[] command = "/put/newGroupChat/asdf".split("/");
+        // [put, newGroupChat]
+
+        API api = new API(command, proxy, 5);
+        String result = api.getMessage();
+        System.out.println(result);
 
     }
 }

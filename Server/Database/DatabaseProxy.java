@@ -34,7 +34,14 @@ public class DatabaseProxy implements Data {
      * @return user information
      */
     public String putUser(String name, String ip, int port) {
-        return getDatabase().putUser(name, ip, port);
+        // if user already exists
+        String isUser = getDatabase().findUser(name, ip, port);
+        if (!isUser.equals("-1")) {
+            return isUser;
+        } else {
+            // create new user
+            return getDatabase().putUser(name, ip, port);
+        }
     }
 
     /*
@@ -108,7 +115,10 @@ public class DatabaseProxy implements Data {
      * @return messages from a groupchat
      * groupID, name, time, message
      */
-    public String getMessage(int groupChat_ID) {
+    public String getMessage(int groupChat_ID, int userId) {
+        // mark as read
+        getDatabase().updateMessageState(groupChat_ID, userId);
+        // get the message
         return getDatabase().getMessage(groupChat_ID);
     }
 
@@ -138,6 +148,15 @@ public class DatabaseProxy implements Data {
 
     // other methods and properties here
     public static void main(String[] args) {
-        // DatabaseProxy proxy = DatabaseProxy.getInstance();
+        DatabaseProxy proxy = DatabaseProxy.getInstance();
+        String a = proxy.getMessage(1, 3);
+        System.out.println(a);
+        // String a = proxy.putUser("bob", "10.0.0.2", 9876);
+        // System.out.println(a);
+        // proxy.putMessage(1, 1, "10:30", "hey im user one");
+
+        // when read a message, put mark as read
+        // String a = proxy.getMessage(1, 1);
+        // System.out.println(a);
     }
 }

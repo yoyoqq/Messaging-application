@@ -10,6 +10,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import Server.Database.DatabaseProxy;
 
+/*
+ * when someone sends a message append to connected_users
+ */
+
 public class Coordinator {
     private Timer timer;
     private TimerTask task;
@@ -18,11 +22,11 @@ public class Coordinator {
 
     public Coordinator(DatabaseProxy proxy) {
         this.proxy = proxy;
-        dummy_data();
-        // this.timer = new Timer();
-        // updateCoodinator(); // Call the method to create and assign a new TimerTask
-        // timer.schedule(task, 0, 2000); // Pass the task object to the
-        // timer.schedule() method
+        // dummy_data();
+        this.timer = new Timer();
+        updateCoodinator(); // Call the method to create and assign a new TimerTask
+        timer.schedule(task, 0, 2000); // Pass the task object to the
+        // timer.schedule(); // method
     }
 
     private void updateCoodinator() {
@@ -30,15 +34,27 @@ public class Coordinator {
             @Override
             public void run() {
                 // Code to be executed every 2 seconds
-                // System.out.println(dummy_users);
+                // System.out.println(connected_users);
+                iterator();
             }
         };
     }
 
-    void iterator() {
+    private void iterator() {
+        getConnectedUsers();
         String[] groupChat_IDs = get_groups_from_not_active_coordinators();
         Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
         selectRandomCoordinator(groups_without_coordinator);
+    }
+
+    // get the connected users from the ChatServer
+    private void getConnectedUsers() {
+        // System.out.println(ChatServer.userThreads);
+        // restart
+        connected_users = new HashSet<>();
+        for (UserThread user : ChatServer.userThreads) {
+            connected_users.add(user.getID());
+        }
     }
 
     // get all the groupchats that are not in connected_users
@@ -91,7 +107,8 @@ public class Coordinator {
             ArrayList<String> values = entry.getValue();
             // System.out.println(gropuchat_ID + " " + values);
             if (values.size() == 0) {
-                System.out.println("Group " + gropuchat_ID + " does not have any members active");
+                // System.out.println("Group " + gropuchat_ID + " does not have any members
+                // active");
                 continue;
             }
             // select random
@@ -109,23 +126,24 @@ public class Coordinator {
     // get groupchat_id: [connected_users]
     void dummy_data() {
         // this.connected_users.add(1);
-        this.connected_users.add(2);
-        this.connected_users.add(4);
+        // this.connected_users.add(2);
+        // this.connected_users.add(4);
         this.connected_users.add(3);
         this.connected_users.add(6);
         this.connected_users.add(7);
-        this.connected_users.add(8);
-        this.connected_users.add(9);
-        this.connected_users.add(10);
-        this.connected_users.add(11);
-        this.connected_users.add(123);
-        this.connected_users.add(12);
+        // this.connected_users.add(8);
+        // this.connected_users.add(9);
+        // this.connected_users.add(10);
+        // this.connected_users.add(11);
+        // this.connected_users.add(123);
+        // this.connected_users.add(12);
     }
 
     public static void main(String[] args) {
         DatabaseProxy proxy = DatabaseProxy.getInstance();
-        Coordinator coordinator = new Coordinator(proxy);
-        coordinator.iterator();
+        new Coordinator(proxy);
+        // coordinator.iterator();
+        // coordinator.getConnectedUsers();
 
         // String[] a = coordinator.get_groups_from_not_active_coordinators();
     }
