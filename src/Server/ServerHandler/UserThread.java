@@ -16,19 +16,13 @@ public class UserThread extends Thread {
     private String all_data;
     private int user_id;
     private Socket socket;
-    private ChatServer server;
+    // private ChatServer server;
     private PrintWriter writer;
     DatabaseProxy proxy;
-    // private DatabaseProxy proxy;
-    // private User user;
-
-    // api
-    // private GET apiGet = new GET();
 
     public UserThread(Socket socket, ChatServer server, DatabaseProxy proxy) {
-        // this.user_id = ID_generator.getUserID();
         this.socket = socket;
-        this.server = server;
+        // this.server = server;
         this.proxy = proxy;
         // this.proxy = proxy; // database proxy
     }
@@ -42,7 +36,6 @@ public class UserThread extends Thread {
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
             OutputStream output = socket.getOutputStream();
             writer = new PrintWriter(output, true);
-            String serverMessage;
             String clientMessage;
 
             // Add user to database
@@ -140,18 +133,4 @@ public class UserThread extends Thread {
     int getID() {
         return this.user_id;
     }
-    // String getDate() {
-    // Date date = new Date(); // create a new Date object with the current date and
-    // time
-    // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // create
-    // a SimpleDateFormat object with the
-    // String formattedDate = sdf.format(date); // format the date using the
-    // SimpleDateFormat object
-    // return formattedDate;
-    // }
-    // int addUser() {
-    // int user_id = ID_generator.user_id += 1;
-    // // Database.userThreads.add(this);
-    // return user_id;
-    // }
 }

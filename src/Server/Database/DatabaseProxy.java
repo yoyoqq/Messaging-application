@@ -1,5 +1,11 @@
 package src.Server.Database;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 // Singleton pattern
 public class DatabaseProxy implements Data {
     // private constructor
@@ -45,7 +51,7 @@ public class DatabaseProxy implements Data {
     }
 
     /*
-     * Select who's gonna be the next coordinator
+     * @param user_id for the new gropuchat
      */
     public void putGroupChat(int coordinator) {
         getDatabase().putGroupChat(coordinator); // create groupchat and assign to it
@@ -54,8 +60,14 @@ public class DatabaseProxy implements Data {
     /*
      * Put a user in group_ID
      */
-    public void putUserInGroups(int user_ID, int groupChat_ID) {
-        getDatabase().putUserInGroups(user_ID, groupChat_ID);
+    public String putUserInGroups(int user_ID, int groupChat_ID) {
+        if (getDatabase().ifUserIsCoordinator(groupChat_ID, user_ID)) {
+            getDatabase().putUserInGroups(user_ID, groupChat_ID);
+            return "";
+        } else {
+            return "You are not the coordinator";
+        }
+
     }
 
     /*
@@ -63,8 +75,13 @@ public class DatabaseProxy implements Data {
      * 
      * @return message confirmation sent to the server
      */
-    public boolean putMessage(int groupChat_ID, int user_ID, String dateTime, String text) {
-        return getDatabase().putMessage(groupChat_ID, user_ID, dateTime, text);
+    public String putMessage(int groupChat_ID, int user_ID, String dateTime, String text) {
+        if (getDatabase().ifUserInGroup(user_ID, groupChat_ID)) {
+            getDatabase().putMessage(groupChat_ID, user_ID, dateTime, text);
+            return "";
+        } else {
+            return "You are not in the groupchat";
+        }
     }
 
     // void putMessageState(int user_ID, int message_ID, int groupChat_ID, boolean
@@ -116,10 +133,76 @@ public class DatabaseProxy implements Data {
      * groupID, name, time, message
      */
     public String getMessage(int groupChat_ID, int userId) {
+        if (!getDatabase().ifUserInGroup(userId, groupChat_ID)) {
+            return "You are not in the GroupChat";
+        }
         // mark as read
         getDatabase().updateMessageState(groupChat_ID, userId);
+        // get Message state
+        Map<String, List<List<String>>> state = getState(groupChat_ID);
+        return processMessage(groupChat_ID, state);
+
+    }
+
+    private String processMessage(int groupChat_ID, Map<String, List<List<String>>> state) {
         // get the message
-        return getDatabase().getMessage(groupChat_ID);
+        String rawMessages = getDatabase().getMessage(groupChat_ID);
+        // split the messages
+        String[] messages = rawMessages.split("/");
+        // format the messages
+        StringBuilder formattedMessages = new StringBuilder();
+        for (int i = 0; i < messages.length; i++) {
+            String message = messages[i];
+            String[] parts = message.split(" ");
+            String messageID = parts[0];
+            String messageReadBy = formatMessageReadBy(state, messageID);
+            String name = parts[1];
+            String time = parts[2];
+            String text = String.join(" ", Arrays.copyOfRange(parts, 3, parts.length));
+            formattedMessages.append(String.format("%-8s (%s): %-30s %s %n", name, time, text, messageReadBy));
+        }
+        return formattedMessages.toString();
+    }
+
+    private String formatMessageReadBy(Map<String, List<List<String>>> map, String messageID) {
+        String messageRead = "";
+        String messageNotRead = "";
+        if (map.containsKey(messageID)) {
+            List<List<String>> data = map.get(messageID);
+            List<String> readBy = data.get(0);
+            List<String> notReadBy = data.get(1);
+            for (String i : readBy) {
+                messageRead += i + " ";
+            }
+            for (String i : notReadBy) {
+                messageNotRead += i + " ";
+            }
+        }
+        String result = String.format("(Message read by: %s)(Message not read by: %s)", messageRead, messageNotRead);
+        return result;
+    }
+
+    private Map<String, List<List<String>>> getState(int groupChat_ID) {
+        String[] messageState = getDatabase().getMessageState(groupChat_ID).split("/");
+
+        Map<String, List<List<String>>> map = new HashMap<>();
+        for (String block : messageState) {
+            String[] parts = block.split(" ");
+            String messageId = parts[0];
+            String user = parts[1];
+            String state = parts[2];
+            if (!map.containsKey(messageId)) {
+                map.put(messageId, new ArrayList<>());
+                map.get(messageId).add(new ArrayList<>());
+                map.get(messageId).add(new ArrayList<>());
+            }
+            if (state.equals("true")) {
+                map.get(messageId).get(0).add(user);
+            } else {
+                map.get(messageId).get(1).add(user);
+            }
+        }
+        return map;
     }
 
     /*
@@ -146,11 +229,20 @@ public class DatabaseProxy implements Data {
         return getDatabase().updadateCoordinator(groupChat_ID, user_ID);
     }
 
-    // other methods and properties here
+    public String deleteUserFromGroupChat(int groupChat_ID, int user_ID) {
+        if (!getDatabase().ifUserIsCoordinator(groupChat_ID, user_ID)) {
+            return "You are not the coordinator";
+        }
+        getDatabase().deleteUserInGroup(user_ID, groupChat_ID);
+        return "Successfully removed";
+    }
+
     public static void main(String[] args) {
-        DatabaseProxy proxy = DatabaseProxy.getInstance();
-        String a = proxy.getMessage(1, 3);
-        System.out.println(a);
+        // DatabaseProxy proxy = DatabaseProxy.getInstance();
+        // a = proxy.putMessage(1, 2, "12", "testfor double");
+        // System.out.println(a);
+        // String a = proxy.getMessage(1, 3);
+        // System.out.println(a);
         // String a = proxy.putUser("bob", "10.0.0.2", 9876);
         // System.out.println(a);
         // proxy.putMessage(1, 1, "10:30", "hey im user one");

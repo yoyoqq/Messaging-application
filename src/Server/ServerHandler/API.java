@@ -3,7 +3,6 @@ package src.Server.ServerHandler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import src.Server.Database.Database;
 import src.Server.Database.DatabaseProxy;
 
 public class API {
@@ -84,6 +83,12 @@ public class API {
                         String all_users = this.proxy.getUsers();
                         // writer.println(all_users);
                         return all_users;
+                    case "connectedUsers":
+                        String connected_users = "";
+                        for (UserThread user : ChatServer.userThreads) {
+                            connected_users += user.getID() + " ";
+                        }
+                        return connected_users;
                     case "coordinator":
                         try {
                             int groupchat_id = Integer.parseInt(message[3]);
@@ -174,8 +179,7 @@ public class API {
 
     public static void main(String[] args) {
         DatabaseProxy proxy = DatabaseProxy.getInstance();
-        String[] command = "/put/newGroupChat/asdf".split("/");
-        // [put, newGroupChat]
+        String[] command = "/get/connectedUsers".split("/");
 
         API api = new API(command, proxy, 5);
         String result = api.getMessage();

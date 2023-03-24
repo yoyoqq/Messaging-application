@@ -118,10 +118,9 @@ public class Coordinator {
             // Random random = new Random();
             int user_id = Integer.parseInt(values.get(new Random().nextInt(values.size())));
             // System.out.println(values.get(randomIndex));
-            String result = proxy.updateCoordinator(gropuchat_ID, user_id);
-            // System.out.println("Coordinator from group: " + gropuchat_ID + ", changed to
-            // user_id: " + user_id);
-            System.out.println(result);
+            proxy.updateCoordinator(gropuchat_ID, user_id);
+            System.out.println("Coordinator from group: " + gropuchat_ID + ", changed to user_id: " + user_id);
+            // System.out.println(result);
         }
     }
 

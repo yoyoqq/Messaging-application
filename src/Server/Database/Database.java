@@ -2,9 +2,6 @@ package src.Server.Database;
 
 import java.io.File;
 import java.sql.*;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 // https://www.youtube.com/watch?v=0beocykXUag
 public class Database implements Data {
@@ -187,7 +184,6 @@ public class Database implements Data {
 
     // look if user exists in database
     String findUser(String name, String ip, Integer port) {
-        String data = "-1";
         int user_id = -1;
         try {
             Class.forName(className);
@@ -425,11 +421,11 @@ public class Database implements Data {
                 int port = rs.getInt("PORT");
 
                 // formatter
-                if (users.length() == 0) {
-                    users += userId + " " + name + " " + ip + " " + port;
-                } else {
-                    users += "/" + userId + " " + name + " " + ip + " " + port;
-                }
+                users += userId + " " + name + " " + ip + " " + port + "\n";
+                // if (users.length() == 0) {
+                // } else {
+                // users += "/" + userId + " " + name + " " + ip + " " + port;
+                // }
             }
             // Close the result set, statement, and connection
             rs.close();
@@ -607,13 +603,13 @@ public class Database implements Data {
             // Create a statement object
             Statement stmt = conn.createStatement();
             // Execute the query to get all data from the user table
-            String sql = "SELECT GROUPCHAT_ID, USER_ID, TIME, MESSAGE FROM MESSAGES WHERE GROUPCHAT_ID = "
+            String sql = "SELECT MESSAGE_ID, USER_ID, TIME, MESSAGE FROM MESSAGES WHERE GROUPCHAT_ID = "
                     + groupChat_ID;
             ResultSet rs = stmt.executeQuery(sql);
 
             // check if the result set is not empty
             while (rs.next()) {
-                int groupId = rs.getInt("GROUPCHAT_ID");
+                int messageID = rs.getInt("MESSAGE_ID");
                 int userId = rs.getInt("USER_ID");
                 String name = getName(userId);
                 String time = rs.getString("TIME");
@@ -621,9 +617,9 @@ public class Database implements Data {
 
                 //
                 if (messages.length() == 0) {
-                    messages += groupId + " " + name + " " + time + " " + message;
+                    messages += messageID + " " + name + " " + time + " " + message;
                 } else {
-                    messages += "/" + groupId + " " + name + " " + time + " " + message;
+                    messages += "/" + messageID + " " + name + " " + time + " " + message;
                 }
             }
 
@@ -680,14 +676,6 @@ public class Database implements Data {
      * @return
      */
     String getMessageState(int groupChat_ID) {
-        // get all the messages ID
-        // String messageState = "";
-
-        // get message ID
-        // String[] message_id = get_messageID_from_Groupchat(groupChat_ID).split("/ ");
-        // return whos in the group (ID)
-        // String[] user_in_group = getGroupUsers(groupChat_ID).split("/ ");
-
         String messages = "";
         try {
             // Establish the database connection
@@ -728,6 +716,75 @@ public class Database implements Data {
         return "null";
     }
 
+    /*
+     * @param data of the user and gropuchat
+     * 
+     * @return if user exists in the group
+     */
+    boolean ifUserInGroup(int userID, int groupchat_id) {
+        boolean inGroup = false;
+        try {
+            // Establish the database connection
+            Connection conn = DriverManager.getConnection(url);
+            // Create a statement object
+            Statement stmt = conn.createStatement();
+            // Execute the query to count the number of rows where USER_ID = userID and
+            // GROUPCHAT_ID = groupchat_id
+            String sql = "SELECT COUNT(1) FROM USERINGROUPS WHERE USER_ID = " + userID + " AND GROUPCHAT_ID = "
+                    + groupchat_id;
+            ResultSet rs = stmt.executeQuery(sql);
+            // Get the count from the result set
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            // If the count is greater than 0, then the user is in the group
+            if (count > 0) {
+                inGroup = true;
+            }
+            // Close the result set, statement, and connection
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return inGroup;
+    }
+
+    boolean ifUserIsCoordinator(int groupchat_id, int userID) {
+        boolean inGroup = false;
+        try {
+            // Establish the database connection
+            Connection conn = DriverManager.getConnection(url);
+            // Create a statement object
+            Statement stmt = conn.createStatement();
+            // Execute the query to count the number of rows where USER_ID = userID and
+            // GROUPCHAT_ID = groupchat_id
+            String sql = "SELECT COUNT(1) FROM GROUPCHAT WHERE GROUPCHAT_ID = " + groupchat_id + " AND COORDINATOR = "
+                    + userID;
+            ResultSet rs = stmt.executeQuery(sql);
+            // Get the count from the result set
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            // If the count is greater than 0, then the user is in the group
+            if (count > 0) {
+                inGroup = true;
+            }
+            // Close the result set, statement, and connection
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return inGroup;
+    }
+
     static void getData(Database db) {
         // get data from database
         db.getUsers();
@@ -758,115 +815,24 @@ public class Database implements Data {
         System.out.println(a);
     }
 
-    private static void updateDeleteUser(int user_ID) {
+    /*
+     * @param remove user from groupchat
+     */
+    void deleteUserInGroup(int user_ID, int groupchat_ID) {
         try {
             // Establish the database connection
             Connection conn = DriverManager.getConnection(url);
             // Create a statement object
             Statement stmt = conn.createStatement();
             // Execute the query to get all data from the user table
-            stmt.executeUpdate("DELETE FROM USER where USER_ID = " + user_ID);
-
+            stmt.executeUpdate(
+                    "DELETE FROM USERINGROUPS where USER_ID = " + user_ID + " AND GROUPCHAT_ID = " + groupchat_ID);
             stmt.close();
             conn.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-    }
-
-    private static void updateDeleteUserInGroups(int user_ID) {
-        try {
-            // Establish the database connection
-            Connection conn = DriverManager.getConnection(url);
-            // Create a statement object
-            Statement stmt = conn.createStatement();
-            // Execute the query to get all data from the user table
-            stmt.executeUpdate("DELETE FROM USERINGROUPS where USER_ID = " + user_ID);
-
-            stmt.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    private static void updateDeleteMessageState(int user_ID) {
-        try {
-            // Establish the database connection
-            Connection conn = DriverManager.getConnection(url);
-            // Create a statement object
-            Statement stmt = conn.createStatement();
-            // Execute the query to get all data from the user table
-            stmt.executeUpdate("DELETE FROM MESSAGESTATE where USER_ID = " + user_ID);
-
-            stmt.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-    }
-
-    // send data to all members that the user is in
-    private static void putNotifyLeaving(int user_ID, String message) {
-        // get the groupchats
-        List<Integer> gropuChatsIn = new ArrayList<>();
-        try {
-            // Establish the database connection
-            Connection conn = DriverManager.getConnection(url);
-            // Create a statement object
-            Statement stmt = conn.createStatement();
-            // Execute the query to get all data from the user table
-            String sql = "SELECT GROUPCHAT_ID FROM USERINGROUPS WHERE USER_ID = " + user_ID;
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // check if the result set is not empty
-            while (rs.next()) {
-                int groupChatId = rs.getInt("GROUPCHAT_ID");
-                gropuChatsIn.add(groupChatId);
-            }
-            // Close the result set, statement, and connection
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        // send message
-        for (int groupChatId : gropuChatsIn) {
-            try {
-                Class.forName(className);
-                Connection c = DriverManager.getConnection(url);
-                c.setAutoCommit(false);
-
-                try (PreparedStatement pstmt = c.prepareStatement(
-                        "INSERT INTO MESSAGES (USER_ID, GROUPCHAT_ID, TIME, MESSAGE) VALUES(?,?,?,?)")) {
-                    pstmt.setInt(1, user_ID);
-                    pstmt.setInt(2, groupChatId);
-                    pstmt.setString(3, LocalTime.now().toString());
-                    pstmt.setString(4, message);
-                    pstmt.executeUpdate();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
-                c.commit();
-                c.close();
-            } catch (Exception e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-                System.exit(0);
-            }
-        }
-    }
-
-    void deleteUser(int user_ID, String message) {
-        putNotifyLeaving(user_ID, message);
-        updateDeleteUser(user_ID);
-        updateDeleteUserInGroups(user_ID);
-        updateDeleteMessageState(user_ID);
     }
 
     String updadateCoordinator(int groupchat_id, int coordinator) {
@@ -909,15 +875,27 @@ public class Database implements Data {
     }
 
     public static void main(String[] args) {
-        Database db = new Database();
+        // Database db = new Database();
+        // deleteUserInGroup(5, 5);
+        // db.putNotifyLeaving(1, );
+
+        // db.putMessage(1, 1, "12:20", "gc 1 at 12:20");
+
+        // boolean a = db.ifUserIsCoordinator(1, 2);
+        // System.out.println(a);
+        // String a = db.getMessageState(1);
+        // System.out.println(a);
+        // String b = db.getMessage(1);
+        // System.out.println(b);
+
         // db.updateMessageState(1, 1);
 
         // String a = db.findUser("bob", "10.0.0.1", 9876);
         // System.out.println(a);
 
         // String a = db.updadateCoordinator(13, 123);
-        createDatabase();
-        createData(db);
+        // createDatabase();
+        // createData(db);
         // getData(db);
 
         // deleteUser(1, "user 1 leaving the chat");
