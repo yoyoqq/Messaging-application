@@ -1,0 +1,119 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "Test",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "MainPage",
+            "request": "launch",
+            "mainClass": "FrontEnd.GUI.MainPage",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "MessagingApp",
+            "request": "launch",
+            "mainClass": "FrontEnd.GUI.MessagingApp",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "MessengerGUI",
+            "request": "launch",
+            "mainClass": "FrontEnd.GUI.MessengerGUI",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "cGUI",
+            "request": "launch",
+            "mainClass": "FrontEnd.GUI.cGUI",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "FrontEnd.Y_GUI.Main",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "mutlithread_chatbox",
+            "request": "launch",
+            "mainClass": "FrontEnd.Y_GUI.mutlithread_chatbox",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "panels",
+            "request": "launch",
+            "mainClass": "FrontEnd.Y_GUI.panels",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "FrontEnd.Y_GUI.test",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "RunServer",
+            "request": "launch",
+            "mainClass": "Runner.RunServer",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "RunUser",
+            "request": "launch",
+            "mainClass": "Runner.RunUser",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "Database",
+            "request": "launch",
+            "mainClass": "Server.Database.Database",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "DatabaseProxy",
+            "request": "launch",
+            "mainClass": "Server.Database.DatabaseProxy",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "API",
+            "request": "launch",
+            "mainClass": "Server.ServerHandler.API",
+            "projectName": "COMP1549_8267b3dd"
+        },
+        {
+            "type": "java",
+            "name": "Coordinator",
+            "request": "launch",
+            "mainClass": "Server.ServerHandler.Coordinator",
+            "projectName": "COMP1549_8267b3dd"
+        }
+    ]
+}
