@@ -3,35 +3,59 @@ package src.Runner;
 import src.ClientServer.ChatClient;
 
 public class RunUser {
+    static String name;
+    static String hostname;
+    static int port;
+
     public static void main(String[] args) {
 
-        // user1();
-        user2();
+        user1();
+        // user2();
         // user3();
+        // user4();
+        // user5();
     }
 
     static void user1() {
-        String name = "Yagol";
-        String hostname = "127.16.0.2";
-        int port = 1234;
+        name = "Oliver";
+        hostname = "127.16.0.1";
+        port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
         client.execute();
     }
 
     static void user2() {
-        String name = "Riya";
-        String hostname = "127.16.0.1";
-        int port = 1234;
+        name = "Emma";
+        hostname = "127.16.0.2";
+        port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
         client.execute();
     }
 
     static void user3() {
-        String name = "Peter";
-        String hostname = "127.16.0.3";
-        int port = 1234;
+        name = "James";
+        hostname = "127.16.0.3";
+        port = 1234;
+
+        ChatClient client = new ChatClient(name, hostname, port);
+        client.execute();
+    }
+
+    static void user4() {
+        name = "Mary";
+        hostname = "127.16.0.4";
+        port = 1234;
+
+        ChatClient client = new ChatClient(name, hostname, port);
+        client.execute();
+    }
+
+    static void user5() {
+        name = "Patricia";
+        hostname = "127.16.0.5";
+        port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
         client.execute();
