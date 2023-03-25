@@ -255,7 +255,7 @@ public class DatabaseProxy implements Data {
     }
 
     public static void main(String[] args) {
-        DatabaseProxy proxy = DatabaseProxy.getInstance();
+        // DatabaseProxy proxy = DatabaseProxy.getInstance();
         // proxy.putUserInGroups(1, 30);
         // String a = proxy.putMessage(1, 1, "10:30", "hello worlsd");
         // System.out.println(a);

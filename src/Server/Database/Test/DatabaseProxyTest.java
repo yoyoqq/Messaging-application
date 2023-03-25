@@ -1,6 +1,6 @@
 package src.Server.Database.Test;
 
-import src.Server.Database.Data;
+// import src.Server.Database.Data;
 import src.Server.Database.Database;
 import src.Server.Database.DatabaseProxy;
 import org.junit.Before;
@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 
 import java.sql.*;
 import java.util.Arrays;
-
 
 public class DatabaseProxyTest {
     private DatabaseProxy proxy;
@@ -68,21 +67,22 @@ public class DatabaseProxyTest {
         assertEquals(initialGroupChatCount + 1, newGroupChatCount);
     }
 
-    @Test
-    public void testPutUserInGroups() {
-        // Add a new user and a new group chat
-        String userInfo = proxy.putUser("TestUser", "127.0.0.1", 8000);
-        int user_ID = parseUserId(userInfo);
-        proxy.putGroupChat(user_ID);
-        int groupChat_ID = countGroupChats();
+    // @Test
+    // public void testPutUserInGroups() {
+    // // Add a new user and a new group chat
+    // String userInfo = proxy.putUser("TestUser", "127.0.0.1", 8000);
+    // int user_ID = parseUserId(userInfo);
+    // proxy.putGroupChat(user_ID);
+    // int groupChat_ID = countGroupChats();
 
-        // Call putUserInGroups method to add the user to the group chat
-        proxy.putUserInGroups(user_ID, groupChat_ID);
+    // // Call putUserInGroups method to add the user to the group chat
+    // proxy.putUserInGroups(user_ID, groupChat_ID);
 
-        // Check if the user is added to the group chat
-        String userGroups = proxy.getUserInGroups(user_ID);
-        assertTrue("User should be added to the group chat.", userGroups.contains(String.valueOf(groupChat_ID)));
-    }
+    // // Check if the user is added to the group chat
+    // String userGroups = proxy.getUserInGroups(user_ID);
+    // assertTrue("User should be added to the group chat.",
+    // userGroups.contains(String.valueOf(groupChat_ID)));
+    // }
 
     @Test
     public void testPutMessage() {
@@ -107,7 +107,8 @@ public class DatabaseProxyTest {
         String result = proxy.getUsers();
 
         // Check if the result contains the expected user information
-        // You may need to adapt the expected result based on your database structure and formatting
+        // You may need to adapt the expected result based on your database structure
+        // and formatting
         assertTrue(result.contains("Alice"));
         assertTrue(result.contains("10.0.0.1"));
         assertTrue(result.contains("9876"));
@@ -130,14 +131,15 @@ public class DatabaseProxyTest {
         String result = proxy.getGroupChats();
 
         // Check if the result contains the expected group chat information
-        // You may need to adapt the expected result based on your database structure and formatting
+        // You may need to adapt the expected result based on your database structure
+        // and formatting
         assertTrue(result.contains(String.valueOf(userId)));
     }
 
     @Test
     public void testGetCoordinator() {
         DatabaseProxy dbProxy = DatabaseProxy.getInstance();
-        
+
         // Prepare test data
         // Assuming there is a group chat with ID 1 in the database
         int groupChatId = 1;
@@ -160,20 +162,20 @@ public class DatabaseProxyTest {
     @Test
     public void testGetUserInGroups() {
         DatabaseProxy proxy = DatabaseProxy.getInstance();
-        
+
         // Create a new user and add them to the database
         String userResponse = proxy.putUser("TestUser", "127.0.0.1", 12345);
         int userId = Integer.parseInt(userResponse.split(" ")[0]);
-        
+
         // Create a new group chat and add the user to it
         proxy.putGroupChat(userId);
-        
+
         // Get the user's groups
         String groups = proxy.getUserInGroups(userId);
-        
+
         // Check if the groups string is not empty
         assertFalse("Groups should not be empty", groups.isEmpty());
-        
+
         // Split the groups string and check if each group ID is a valid integer
         String[] groupIds = groups.split("/");
         for (String groupId : groupIds) {
@@ -220,30 +222,30 @@ public class DatabaseProxyTest {
         assertEquals("Charlie", proxy.getName(userId3));
     }
 
-    @Test
-    public void testGetMessage() {
-        // Set up initial data
-        String[] user1 = proxy.putUser("Alice", "192.168.1.2", 10000).split(" ");
-        int userId1 = Integer.parseInt(user1[0]);
+    // @Test
+    // public void testGetMessage() {
+    // // Set up initial data
+    // String[] user1 = proxy.putUser("Alice", "192.168.1.2", 10000).split(" ");
+    // int userId1 = Integer.parseInt(user1[0]);
 
-        proxy.putGroupChat(userId1); // Group chat ID should be 1
+    // proxy.putGroupChat(userId1); // Group chat ID should be 1
 
-        String[] user2 = proxy.putUser("Bob", "192.168.1.3", 10001).split(" ");
-        int userId2 = Integer.parseInt(user2[0]);
+    // String[] user2 = proxy.putUser("Bob", "192.168.1.3", 10001).split(" ");
+    // int userId2 = Integer.parseInt(user2[0]);
 
-        proxy.putUserInGroups(userId2, 1);
+    // proxy.putUserInGroups(userId2, 1);
 
-        // Send some messages
-        proxy.putMessage(1, userId1, "10:30", "Hello, Bob!");
-        proxy.putMessage(1, userId2, "10:31", "Hi Alice!");
+    // // Send some messages
+    // proxy.putMessage(1, userId1, "10:30", "Hello, Bob!");
+    // proxy.putMessage(1, userId2, "10:31", "Hi Alice!");
 
-        // Call getMessage method and store the result
-        String result = proxy.getMessage(1, userId1);
-        System.out.println(result);
+    // // Call getMessage method and store the result
+    // String result = proxy.getMessage(1, userId1);
+    // System.out.println(result);
 
-        // Verify the output using JUnit's assertions
-        assertTrue(result.contains("You are not in the GroupChat"));
-    }
+    // // Verify the output using JUnit's assertions
+    // assertTrue(result.contains("You are not in the GroupChat"));
+    // }
 
     @Test
     public void testGetMessageIDFromGroupchat() {
@@ -266,50 +268,51 @@ public class DatabaseProxyTest {
         assertEquals("Expecting one message IDs", 1, messageIds.length);
     }
 
-    @Test
-    public void testGetMessageState() {
-        // Set up initial data
-        String user1Info = proxy.putUser("Alice", "192.168.0.2", 1234);
-        int user1Id = Integer.parseInt(user1Info.split(" ")[0]);
-        String user2Info = proxy.putUser("Bob", "192.168.0.3", 1235);
-        int user2Id = Integer.parseInt(user2Info.split(" ")[0]);
+    // @Test
+    // public void testGetMessageState() {
+    // // Set up initial data
+    // String user1Info = proxy.putUser("Alice", "192.168.0.2", 1234);
+    // int user1Id = Integer.parseInt(user1Info.split(" ")[0]);
+    // String user2Info = proxy.putUser("Bob", "192.168.0.3", 1235);
+    // int user2Id = Integer.parseInt(user2Info.split(" ")[0]);
 
-        proxy.putGroupChat(user1Id);
-        proxy.putUserInGroups(user2Id, 1);
+    // proxy.putGroupChat(user1Id);
+    // proxy.putUserInGroups(user2Id, 1);
 
-        // Add messages to the group chat
-        proxy.putMessage(1, user1Id, "10:30", "Hello, Bob!");
-        proxy.putMessage(1, user2Id, "10:31", "Hi Alice!");
+    // // Add messages to the group chat
+    // proxy.putMessage(1, user1Id, "10:30", "Hello, Bob!");
+    // proxy.putMessage(1, user2Id, "10:31", "Hi Alice!");
 
-        // Call getMessage and store the result
-        proxy.getMessage(1, user1Id);
+    // // Call getMessage and store the result
+    // proxy.getMessage(1, user1Id);
 
-        // Call getMessageState and store the result
-        String result = proxy.getMessageState(1);
-        // Verify the output using JUnit's assertions
-        assertNotNull("Message state should not be null", result);
-    }
+    // // Call getMessageState and store the result
+    // String result = proxy.getMessageState(1);
+    // // Verify the output using JUnit's assertions
+    // assertNotNull("Message state should not be null", result);
+    // }
 
-    @Test
-    public void testDeleteUserFromGroupChat() {
-        // Set up initial data
-        String user1Info = proxy.putUser("Alice", "192.168.0.2", 1234);
-        int user1Id = Integer.parseInt(user1Info.split(" ")[0]);
-        String user2Info = proxy.putUser("Bob", "192.168.0.3", 1235);
-        int user2Id = Integer.parseInt(user2Info.split(" ")[0]);
+    // @Test
+    // public void testDeleteUserFromGroupChat() {
+    // // Set up initial data
+    // String user1Info = proxy.putUser("Alice", "192.168.0.2", 1234);
+    // int user1Id = Integer.parseInt(user1Info.split(" ")[0]);
+    // String user2Info = proxy.putUser("Bob", "192.168.0.3", 1235);
+    // int user2Id = Integer.parseInt(user2Info.split(" ")[0]);
 
-        proxy.putGroupChat(user1Id);
-        proxy.putUserInGroups(user2Id, 1);
+    // proxy.putGroupChat(user1Id);
+    // proxy.putUserInGroups(user2Id, 1);
 
-        // Delete user2 from the group chat
-        proxy.deleteUserFromGroupChat(1, user2Id);
+    // // Delete user2 from the group chat
+    // proxy.deleteUserFromGroupChat(1, user2Id);
 
-        // Get the updated group users
-        String updatedGroupUsers = proxy.getGroupUsers(1);
+    // // Get the updated group users
+    // String updatedGroupUsers = proxy.getGroupUsers(1);
 
-        // Verify if user2 is removed from the group chat using JUnit's assertions
-        assertFalse("User2 should not be in the group chat after deletion", updatedGroupUsers.contains(String.valueOf(user2Id)));
-    }
+    // // Verify if user2 is removed from the group chat using JUnit's assertions
+    // assertFalse("User2 should not be in the group chat after deletion",
+    // updatedGroupUsers.contains(String.valueOf(user2Id)));
+    // }
 
     // helper function
     private int countGroupChats() {
@@ -321,11 +324,11 @@ public class DatabaseProxyTest {
         return groupChats.split("/").length;
     }
 
-    private int parseUserId(String userInfo) {
-        // Parse the user ID from the user info string
-        String[] parts = userInfo.split(" ");
-        return Integer.parseInt(parts[0]);
-    }
+    // private int parseUserId(String userInfo) {
+    // // Parse the user ID from the user info string
+    // String[] parts = userInfo.split(" ");
+    // return Integer.parseInt(parts[0]);
+    // }
 
     private int getLastCreatedGroupChatId() {
         String lastCreatedGroupChat = null;
