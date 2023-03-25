@@ -133,4 +133,8 @@ public class UserThread extends Thread {
     int getID() {
         return this.user_id;
     }
+
+    String getAllData() {
+        return this.all_data;
+    }
 }

@@ -214,7 +214,7 @@ public class Database implements Data {
         }
     }
 
-    public void putGroupChat(int coordinator) {
+    public String putGroupChat(int coordinator) {
         try {
             int last_generated_key = -1;
             Class.forName(className);
@@ -237,9 +237,11 @@ public class Database implements Data {
             c.close();
             // add user to the groupchat
             putUserInGroups(coordinator, last_generated_key);
+            return Integer.toString(last_generated_key);
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
+            return "Error in putGroupChat";
         }
     }
 
@@ -364,7 +366,9 @@ public class Database implements Data {
                 int port = rs.getInt("PORT");
 
                 // formatter
-                users += userId + " " + name + " " + ip + " " + port + "\n";
+                String format = String.format("%-3d %-5s \t %s \t %d\n", userId, name, ip, port);
+                // users += userId + " " + name + " " + ip + " " + port + "\n";
+                users += format;
                 // if (users.length() == 0) {
                 // } else {
                 // users += "/" + userId + " " + name + " " + ip + " " + port;
@@ -789,6 +793,7 @@ public class Database implements Data {
 
     public static void main(String[] args) {
         // Database db = new Database();
+        // db.putUserInGroups(1, 10);
         // createDatabase();
     }
 }

@@ -9,11 +9,12 @@ public class RunUser {
 
     public static void main(String[] args) {
 
-        user1();
+        // user1();
         // user2();
         // user3();
         // user4();
         // user5();
+        user6();
     }
 
     static void user1() {
@@ -54,6 +55,15 @@ public class RunUser {
 
     static void user5() {
         name = "Patricia";
+        hostname = "127.16.0.5";
+        port = 1234;
+
+        ChatClient client = new ChatClient(name, hostname, port);
+        client.execute();
+    }
+
+    static void user6() {
+        name = "bob";
         hostname = "127.16.0.5";
         port = 1234;
 

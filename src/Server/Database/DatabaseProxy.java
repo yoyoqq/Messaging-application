@@ -53,17 +53,18 @@ public class DatabaseProxy implements Data {
     /*
      * @param user_id for the new gropuchat
      */
-    public void putGroupChat(int coordinator) {
-        getDatabase().putGroupChat(coordinator); // create groupchat and assign to it
+    public String putGroupChat(int coordinator) {
+        String groupChat_ID = getDatabase().putGroupChat(coordinator); // create groupchat and assign to it
+        return "GroupChat_ID: " + groupChat_ID;
     }
 
     /*
      * Put a user in group_ID
      */
-    public String putUserInGroups(int user_ID, int groupChat_ID) {
-        if (getDatabase().ifUserIsCoordinator(groupChat_ID, user_ID)) {
+    public String putUserInGroups(int user_ID, int groupChat_ID, int coordinatorId) {
+        if (getDatabase().ifUserIsCoordinator(groupChat_ID, coordinatorId)) {
             getDatabase().putUserInGroups(user_ID, groupChat_ID);
-            return "";
+            return "User " + user_ID + " added to the groupchat " + groupChat_ID;
         } else {
             return "You are not the coordinator";
         }
@@ -80,7 +81,7 @@ public class DatabaseProxy implements Data {
             getDatabase().putMessage(groupChat_ID, user_ID, dateTime, text);
             return "";
         } else {
-            return "You are not in the groupchat";
+            return "You are not in the groupchat " + groupChat_ID;
         }
     }
 
@@ -118,7 +119,23 @@ public class DatabaseProxy implements Data {
      * @return members of a group
      */
     public String getGroupUsers(int groupChat_ID) {
+        // String result = "Members in groupChat_ID: " + groupChat_ID + "\n";
+        // String[] users = getDatabase().getGroupUsers(groupChat_ID).split("/");
+        // for (String u : users) {
+        // result += u + ":" + getName(Integer.parseInt(u)) + "\n";
+        // }
+        // return result;
         return getDatabase().getGroupUsers(groupChat_ID);
+
+    }
+
+    public String getMembersOfGroup(int gropuChat_ID) {
+        String result = "Members in groupChat_ID: " + gropuChat_ID + "\n";
+        String[] users = getDatabase().getGroupUsers(gropuChat_ID).split("/");
+        for (String u : users) {
+            result += "ID: " + u + "\t" + getName(Integer.parseInt(u)) + "\n";
+        }
+        return result;
     }
 
     /*
@@ -229,8 +246,8 @@ public class DatabaseProxy implements Data {
         return getDatabase().updadateCoordinator(groupChat_ID, user_ID);
     }
 
-    public String deleteUserFromGroupChat(int groupChat_ID, int user_ID) {
-        if (!getDatabase().ifUserIsCoordinator(groupChat_ID, user_ID)) {
+    public String deleteUserFromGroupChat(int groupChat_ID, int user_ID, int coordinator) {
+        if (!getDatabase().ifUserIsCoordinator(groupChat_ID, coordinator)) {
             return "You are not the coordinator";
         }
         getDatabase().deleteUserInGroup(user_ID, groupChat_ID);
@@ -239,8 +256,9 @@ public class DatabaseProxy implements Data {
 
     public static void main(String[] args) {
         DatabaseProxy proxy = DatabaseProxy.getInstance();
-        String a = proxy.putMessage(1, 1, "10:30", "hello worlsd");
-        System.out.println(a);
+        // proxy.putUserInGroups(1, 30);
+        // String a = proxy.putMessage(1, 1, "10:30", "hello worlsd");
+        // System.out.println(a);
         // a = proxy.putMessage(1, 2, "12", "testfor double");
         // System.out.println(a);
         // String a = proxy.getMessage(1, 3);
