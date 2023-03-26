@@ -47,11 +47,14 @@ public class Coordinator {
      * 
      */
     private void iterator() {
-        if (getConnectedUsers()) {
-            String[] groupChat_IDs = get_groups_from_not_active_coordinators();
-            Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
-            selectRandomCoordinator(groups_without_coordinator);
-        }
+        // if none return
+        if (!getConnectedUsers())
+            return;
+        String[] groupChat_IDs = get_groups_from_not_active_coordinators();
+        if (groupChat_IDs.length == 0)
+            return;
+        Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
+        selectRandomCoordinator(groups_without_coordinator);
     }
 
     // get the connected users from the ChatServer
