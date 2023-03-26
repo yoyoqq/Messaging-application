@@ -43,21 +43,29 @@ public class Coordinator {
         };
     }
 
+    /**
+     * 
+     */
     private void iterator() {
-        getConnectedUsers();
-        String[] groupChat_IDs = get_groups_from_not_active_coordinators();
-        Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
-        selectRandomCoordinator(groups_without_coordinator);
+        if (getConnectedUsers()) {
+            String[] groupChat_IDs = get_groups_from_not_active_coordinators();
+            Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
+            selectRandomCoordinator(groups_without_coordinator);
+        }
     }
 
     // get the connected users from the ChatServer
-    private void getConnectedUsers() {
+    private boolean getConnectedUsers() {
         // check every "TIMER" seconds
         connected_users = new HashSet<>();
         for (UserThread user : ChatServer.userThreads) {
             connected_users.add(user.getID());
         }
         // System.out.println(connected_users);
+        if (connected_users.size() == 0) {
+            return false;
+        }
+        return true;
     }
 
     // get all the groupchats that are not in connected_users
@@ -83,7 +91,7 @@ public class Coordinator {
     /*
      * @param gropuchat_ID's from non active coordinators
      */
-    private Map<String, ArrayList<String>> lookForMembers(String[] groupChat_IDs) {
+    public Map<String, ArrayList<String>> lookForMembers(String[] groupChat_IDs) {
         HashMap<String, ArrayList<String>> groups_without_coordinator = new HashMap<>();
         // iterate through all the groupchats from non active coordinators
         for (String group : groupChat_IDs) {
@@ -102,7 +110,7 @@ public class Coordinator {
         return groups_without_coordinator;
     }
 
-    private void selectRandomCoordinator(Map<String, ArrayList<String>> groupData) {
+    public void selectRandomCoordinator(Map<String, ArrayList<String>> groupData) {
         // System.out.println(groupData.);
         for (Entry<String, ArrayList<String>> entry : groupData.entrySet()) {
             // System.out.println(data);

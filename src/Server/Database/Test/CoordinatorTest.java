@@ -26,7 +26,7 @@ public class CoordinatorTest {
 
     @Test
     public void testLookForMembers() {
-        String[] groupChatIds = {"1", "2", "3"};
+        String[] groupChatIds = { "1", "2", "3" };
         Map<String, ArrayList<String>> result = coordinator.lookForMembers(groupChatIds);
         System.out.println(result);
         // Define expected members for each group
@@ -68,6 +68,5 @@ public class CoordinatorTest {
         assertTrue(group1Members.contains(String.valueOf(newGroup1Coordinator)));
         assertTrue(group2Members.contains(String.valueOf(newGroup2Coordinator)));
     }
-    
-    
+
 }

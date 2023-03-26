@@ -792,8 +792,8 @@ public class Database implements Data {
     }
 
     public static void main(String[] args) {
-        // Database db = new Database();
+        Database db = new Database();
         // db.putUserInGroups(1, 10);
-        // createDatabase();
+        createDatabase();
     }
 }

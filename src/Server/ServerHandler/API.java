@@ -185,12 +185,50 @@ public class API {
 
     public static void main(String[] args) {
         DatabaseProxy proxy = DatabaseProxy.getInstance();
-        String[] command = "/kickUser/1/1".split("/");
+        String[] command;
 
-        API api = new API(command, proxy, 1);
-        String result = api.getMessage();
-        System.out.println(result);
+        // CREATE GROUPCHATS
+        // command = "/put/newGroupChat".split("/");
+        // new API(command, proxy, 1).getMessage();
+        // command = "/put/userInGroup/1/2".split("/");
+        // new API(command, proxy, 1).getMessage();
+        // command = "/put/userInGroup/1/3".split("/");
+        // new API(command, proxy, 1).getMessage();
+        // command = "/put/userInGroup/1/4".split("/");
+        // new API(command, proxy, 1).getMessage();
+        // command = "/put/userInGroup/1/5".split("/");
+        // new API(command, proxy, 1).getMessage();
 
+        // command = "/put/newGroupChat".split("/");
+        // new API(command, proxy, 2).getMessage();
+        // command = "/put/userInGroup/2/3".split("/");
+        // new API(command, proxy, 2).getMessage();
+        // command = "/put/userInGroup/2/4".split("/");
+        // new API(command, proxy, 2).getMessage();
+
+        // command = "/put/newGroupChat".split("/");
+        // new API(command, proxy, 4).getMessage();
+        // command = "/put/userInGroup/3/3".split("/");
+        // new API(command, proxy, 4).getMessage();
+
+        // PUT MESSAGES INTO GROUPS
+        // command = "/put/message/1/Hi, I am the coordinator".split("/");
+        // new API(command, proxy, 1).getMessage();
+        // command = "/put/message/1/Hello Alice, I am Bob nice to meet you".split("/");
+        // new API(command, proxy, 2).getMessage();
+        // command = "/put/message/1/Hello everyone".split("/");
+        // new API(command, proxy, 5).getMessage();
+
+        // command = "/put/message/2/Welcome everyone to the group 2".split("/");
+        // new API(command, proxy, 2).getMessage();
+        // command = "/put/message/2/Thank you".split("/");
+        // new API(command, proxy, 3).getMessage();
+        // command = "/put/message/2/Thank you".split("/");
+        // new API(command, proxy, 4).getMessage();
+
+        command = "/get/messages/1".split("/");
+        String a = new API(command, proxy, 1).getMessage();
+        System.out.println(a);
     }
 
 }

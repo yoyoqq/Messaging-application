@@ -13,12 +13,12 @@ public class RunUser {
         // user2();
         // user3();
         // user4();
-        // user5();
-        user6();
+        user5();
+        // new_user6();
     }
 
     static void user1() {
-        name = "Oliver";
+        name = "Alice";
         hostname = "127.16.0.1";
         port = 1234;
 
@@ -27,8 +27,8 @@ public class RunUser {
     }
 
     static void user2() {
-        name = "Emma";
-        hostname = "127.16.0.2";
+        name = "Bob";
+        hostname = "127.16.0.32";
         port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
@@ -36,7 +36,7 @@ public class RunUser {
     }
 
     static void user3() {
-        name = "James";
+        name = "Charlie";
         hostname = "127.16.0.3";
         port = 1234;
 
@@ -45,8 +45,8 @@ public class RunUser {
     }
 
     static void user4() {
-        name = "Mary";
-        hostname = "127.16.0.4";
+        name = "Dave";
+        hostname = "127.16.0.78";
         port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
@@ -54,16 +54,16 @@ public class RunUser {
     }
 
     static void user5() {
-        name = "Patricia";
-        hostname = "127.16.0.5";
+        name = "Eve";
+        hostname = "127.16.0.23";
         port = 1234;
 
         ChatClient client = new ChatClient(name, hostname, port);
         client.execute();
     }
 
-    static void user6() {
-        name = "bob";
+    static void new_user6() {
+        name = "Peter";
         hostname = "127.16.0.5";
         port = 1234;
 

@@ -35,16 +35,16 @@ public class Database_Test {
 
     static void createData(Database db) {
         // create user
-        db.putUser("alice", "127.16.0.5", 1234);
-        db.putUser("bob", "127.16.0.5", 1234);
-        db.putUser("charlie", "127.16.0.5", 1234);
-        db.putUser("dave", "127.16.0.5", 1234);
-        db.putUser("eve", "127.16.0.5", 1234);
-        db.putUser("frank", "127.16.0.5", 1234);
-        db.putUser("grace", "127.16.0.5", 1234);
-        db.putUser("harry", "127.16.0.5", 1234);
-        db.putUser("ian", "127.16.0.5", 1234);
-        db.putUser("jane", "127.16.0.5", 1234);
+        db.putUser("Alice", "127.16.0.1", 1234);
+        db.putUser("Bob", "127.16.0.32", 1234);
+        db.putUser("Charlie", "127.16.0.3", 1234);
+        db.putUser("Dave", "127.16.0.78", 1234);
+        db.putUser("Eve", "127.16.0.23", 1234);
+        // db.putUser("frank", "127.16.0.5", 1234);
+        // db.putUser("grace", "127.16.0.5", 1234);
+        // db.putUser("harry", "127.16.0.5", 1234);
+        // db.putUser("ian", "127.16.0.5", 1234);
+        // db.putUser("jane", "127.16.0.5", 1234);
 
         // create groupchat
         db.putGroupChat(1);

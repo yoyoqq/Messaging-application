@@ -1,8 +1,0 @@
-You should run a server and three clients, where one of them is coordinator
-Demonstrate how the coordinator work
-
-add coordinator functionality
-	kick from group
-	add to group	
-	see who's connected in the group
-
