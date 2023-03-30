@@ -1,7 +1,5 @@
-sum of contribution from all members of a group equals 100%
-
-jamal -> 
-junjie ->
-natasha -> 
-jestin -> 
-yagol -> 
+jamal -> 20
+junjie -> 20
+natasha -> 20
+jestin -> 20
+yagol -> 20
