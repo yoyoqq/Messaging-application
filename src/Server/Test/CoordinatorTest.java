@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+// This class, CoordinatorTest, is part of the src.Server.Database.Test package and is used to test the functionality of the Coordinator class, which is responsible for coordinating group chat activities.
 public class CoordinatorTest {
 
     private Coordinator coordinator;

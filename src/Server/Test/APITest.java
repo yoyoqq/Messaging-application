@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /*
- * 'APITest' class, contains a series of test methods to verify the functionality of the API class, which serves as an interface between the server and the database. The tests use the JUnit testing framework and the DatabaseProxy class to interact with the database.
+ * APITest, contains a series of test methods to verify the functionality of the API class, which serves as an interface between the server and the database.
  */
 public class APITest {
     private DatabaseProxy proxy;

@@ -2,6 +2,7 @@ package src.Server.Test;
 
 import src.Server.Database.Database;
 
+// Manual testing of the database class
 public class Database_Test {
     static void getData(Database db) {
         // get data from database

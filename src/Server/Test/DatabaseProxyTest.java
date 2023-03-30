@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import java.sql.*;
 import java.util.Arrays;
 
+//  DatabaseProxyTest, is a test suite for the DatabaseProxy class, which is responsible for interacting with the database in the context of a server.
 public class DatabaseProxyTest {
     private DatabaseProxy proxy;
 
