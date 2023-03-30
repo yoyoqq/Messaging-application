@@ -9,7 +9,8 @@ import java.net.*;
  * This thread is responsible for reading user's input and send it
  * to the server.
  * It runs in an infinite loop until the user types 'bye' to quit.
- *
+ * Reference:
+ * https://www.codejava.net/java-se/networking/how-to-create-a-chat-console-application-in-java-using-socket
  */
 public class WriteThread extends Thread {
     private PrintWriter writer;
@@ -31,23 +32,14 @@ public class WriteThread extends Thread {
 
     public void run() {
         Console console = System.console();
-        // Scanner sc = new Scanner(System.in);
-        // String userName = console.readLine("\nEnter your name: ");
-        // client.setUserName(userName);
-        // writer.println(userName);
-        // writer.println(socket.getInetAddress().getAddress());
 
         // Send user data to the server -> name/ip/port
         String userData = client.userName + "/" + client.hostName + "/" + client.port;
-        // System.out.println(userData);
-        // writer.write(userData);
-        // writer.flush();
         writer.println(userData);
 
         String text;
 
         do {
-            // text = console.readLine("[" + client.getUserName() + "]: ");
             text = console.readLine();
             writer.println(text);
 

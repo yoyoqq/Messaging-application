@@ -24,13 +24,6 @@ public class ChatClient {
     public void execute() {
         try {
             Socket socket = new Socket(hostName, port);
-            // addr = socket.getInetAddress();
-            // System.out.println("this is your data" + ID + " " + hostname + " "+ port +" "
-            // + userName +" "+ addr);
-            // InetAddress addr = socket.getInetAddress();
-            // System.out.println("connected to ip " + addr);
-
-            // System.out.println("Connected to the chat server");
 
             new WriteThread(socket, this).start();
             new ReadThread(socket, this).start();
@@ -41,10 +34,6 @@ public class ChatClient {
             System.out.println("I/O Error: " + ex.getMessage());
         }
     }
-
-    // void setUserName(String userName) {
-    // this.userName = userName;
-    // }
 
     public String getUserName() {
         return userName;

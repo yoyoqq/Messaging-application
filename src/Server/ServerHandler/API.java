@@ -162,25 +162,40 @@ public class API {
                 }
             case "quit":
                 System.out.println("User quit");
-                // writer.println("quit");
                 return "Server: user " + this.user_id + " has quit.";
-            // this.proxy.deleteUser(this.user_id, "User has quitted");
+
+            case "help":
+                return commands();
 
             default:
                 // handle default case
-                return "Invalid input";
+                return "Type 'help'";
         }
     }
-
-    // void sendMessage(String message) {
-    // writer.println(message);
-    // }
 
     String getDate() {
         Date date = new Date(); // create a new Date object with the current date and time
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // create a SimpleDateFormat object with the
         String formattedDate = sdf.format(date); // format the date using the SimpleDateFormat object
         return formattedDate;
+    }
+
+    private String commands() {
+        String helpText = "Available commands:\n" +
+                "/put/newGroupChat - Create a new group chat\n" +
+                "/put/userInGroup/user_id/groupchat_id - Add a user to a group chat\n"
+                + "/put/message/groupChat_ID/user_ID/dateTime/text - Send a message to a group chat\n" +
+                "/get/users - Get a list of all users\n" +
+                "/get/coordinator/groupchat_id - Get the coordinator of a group chat\n" +
+                "/get/userInGroups/user_ID - Get the groups a user is in\n" +
+                "/get/groupUsers/groupChat_ID - Get the users in a group chat\n" +
+                "/get/name/user_ID - Get the name of a user\n" +
+                "/get/messages/groupChat_ID - Get the messages in a group chat\n" +
+                "/get/messagesState/groupChat_ID - Get the message states in a group chat\n"
+                +
+                "/quit - Quit the application\n" +
+                "/help - Display this help message";
+        return helpText;
     }
 
     public static void main(String[] args) {
@@ -230,42 +245,4 @@ public class API {
         String a = new API(command, proxy, 1).getMessage();
         System.out.println(a);
     }
-
 }
-// private void displayHelp() {
-// String helpText = "Available commands:\n" +
-// "/put/newGroupChat - Create a new group chat\n" +
-// "/put/userInGroup/user_id/groupchat_id - Add a user to a group chat\n" +
-// "/put/message/groupChat_ID/user_ID/dateTime/text - Send a message to a group
-// chat\n" +
-// "/get/users - Get a list of all users\n" +
-// "/get/coordinator/groupchat_id - Get the coordinator of a group chat\n" +
-// "/get/userInGroups/user_ID - Get the groups a user is in\n" +
-// "/get/groupUsers/groupChat_ID - Get the users in a group chat\n" +
-// "/get/name/user_ID - Get the name of a user\n" +
-// "/get/messages/groupChat_ID - Get the messages in a group chat\n" +
-// "/get/messagesState/groupChat_ID - Get the message states in a group chat\n"
-// +
-// "/quit - Quit the application\n" +
-// "/help - Display this help message";
-// }
-
-/*
- * GET
- * id -> own ID
- * users -> all the users
- * connectedUsers -> all connected users
- * coordinator/groupChat_ID -> coordinator of a groupchat
- * userInGroups/user_ID -> see in which groups a user is in
- * groupMembers/groupChat_ID -> members of a group chat
- * name/user_ID -> get the name of the ID
- * messages/groupChat_ID -> get messages from a GC
- * 
- * 
- * QUIT
- * 
- * PUT
- * newGroupChat -> create groupchat
- * userInGroup/groupChatID/user_ID -> add user into groupchat
- * message/groupChat_ID -> add a message in a groupchat
- */

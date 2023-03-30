@@ -35,17 +35,10 @@ public class ReadThread extends Thread {
         while (true) {
             try {
                 response = reader.readLine();
-                // System.out.println("\n" + response);
                 System.out.println(response);
 
-                // prints the username after displaying the server's message
-                // if (client.getUserName() != null) {
-                // System.out.print("[" + client.getUserName() + "]: ");
-                // }
             } catch (Exception ex) {
                 System.out.println("ReadThread: Server closed");
-                // System.out.println("Error reading from server: " + ex.getMessage());
-                // ex.printStackTrace();
                 break;
             }
         }

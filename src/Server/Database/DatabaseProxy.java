@@ -85,11 +85,6 @@ public class DatabaseProxy implements Data {
         }
     }
 
-    // void putMessageState(int user_ID, int message_ID, int groupChat_ID, boolean
-    // bool) {
-    // getDatabase().putMessageState(user_ID, message_ID, groupChat_ID, bool);
-    // }
-
     /*
      * @return all the users id, name, ip and port
      */
@@ -119,12 +114,6 @@ public class DatabaseProxy implements Data {
      * @return members of a group
      */
     public String getGroupUsers(int groupChat_ID) {
-        // String result = "Members in groupChat_ID: " + groupChat_ID + "\n";
-        // String[] users = getDatabase().getGroupUsers(groupChat_ID).split("/");
-        // for (String u : users) {
-        // result += u + ":" + getName(Integer.parseInt(u)) + "\n";
-        // }
-        // return result;
         return getDatabase().getGroupUsers(groupChat_ID);
 
     }
@@ -236,11 +225,6 @@ public class DatabaseProxy implements Data {
     public String getMessageState(int groupChat_ID) {
         return getDatabase().getMessageState(groupChat_ID);
     }
-
-    // delete user from database and notify all the members
-    // public void deleteUser(int user_ID, String message) {
-    // getDatabase().deleteUser(user_ID, message);
-    // }
 
     public String updateCoordinator(int groupChat_ID, int user_ID) {
         return getDatabase().updadateCoordinator(groupChat_ID, user_ID);

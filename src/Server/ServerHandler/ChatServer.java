@@ -56,85 +56,8 @@ public class ChatServer {
             }
         }
     }
-    // }
-    // }
-
-    // void broadcast(String message) {
-    // for (UserThread aUser : SQLiteJDBC.userThreads) {
-    // aUser.sendMessage(message);
-    // }
-    // }
-    // void broadcast(ArrayList message){
-    // for (UserThread aUser : Database.userThreads) {
-    // aUser.sendMessage(message);
-    // }
-    // }
 
     void printData(String data) {
         System.out.println(data);
     }
-
-    /**
-     * Stores username of the newly connected client.
-     */
-    // void addUserName(String userName) {
-    // Database.userNames.add(userName);
-    // }
-
-    /**
-     * When a client is disconneted, removes the associated username and UserThread
-     * CHANGE TO USER_THREAD.JAVA FILE TO CLOSE SOCKET/ INPUTSTREAMREADER/
-     */
-    // void removeUser(String userName, UserThread aUser) {
-    // boolean removed = Database.userNames.remove(userName);
-    // if (removed) {
-    // Database.userThreads.remove(aUser);
-    // System.out.println("The user " + userName + " quitted");
-    // }
-    // close socket/ inputStreamReader/ outputStreamWriter/ bufferedReader/
-    // bufferedWriter
-    // finally{
-    // // close all connections
-    // finally{
-    // try {
-    // if (socket != null){
-    // socket.close();
-    // }
-    // if (inputStreamReader != null){
-    // inputStreamReader.close();
-    // }
-    // if (outputStreamWriter != null){
-    // outputStreamWriter.close();
-    // }
-    // if (bufferedReader != null){
-    // bufferedReader.close();
-    // }
-    // if (bufferedWriter != null){
-    // bufferedWriter.close();
-    // }
-    // }
-    // catch (IOException e){
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    // void removeUser(Integer user_id, UserThread aUser) {
-    // boolean removed = Database.userNames.remove(user_id);
-    // if (removed) {
-    // Database.userThreads.remove(aUser);
-    // System.out.println("The user " + user_id + " quitted");
-    // }
-    // }
-
-    // Set<String> getUserNames() {
-    // return Database.userNames;
-    // }
-
-    /**
-     * Returns true if there are other users connected (not count the currently
-     * connected user)
-     */
-    // boolean hasUsers() {
-    // return !Database.userNames.isEmpty();
-    // }
 }

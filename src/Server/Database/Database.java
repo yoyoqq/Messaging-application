@@ -369,10 +369,7 @@ public class Database implements Data {
                 String format = String.format("%-3d %-5s \t %s \t %d\n", userId, name, ip, port);
                 // users += userId + " " + name + " " + ip + " " + port + "\n";
                 users += format;
-                // if (users.length() == 0) {
-                // } else {
-                // users += "/" + userId + " " + name + " " + ip + " " + port;
-                // }
+
             }
             // Close the result set, statement, and connection
             rs.close();
@@ -792,8 +789,7 @@ public class Database implements Data {
     }
 
     public static void main(String[] args) {
-        Database db = new Database();
-        // db.putUserInGroups(1, 10);
-        createDatabase();
+        // Database db = new Database();
+        // createDatabase();
     }
 }

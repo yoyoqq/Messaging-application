@@ -5,9 +5,6 @@ import java.net.*;
 
 import src.Server.Database.DatabaseProxy;
 
-// import Server.Database.User;
-// import Server.ServerHandler.API.GET;
-
 /**
  * This thread handles connection for each connected client, so the server
  * can handle multiple clients at the same time.
@@ -22,9 +19,7 @@ public class UserThread extends Thread {
 
     public UserThread(Socket socket, ChatServer server, DatabaseProxy proxy) {
         this.socket = socket;
-        // this.server = server;
         this.proxy = proxy;
-        // this.proxy = proxy; // database proxy
     }
 
     // Run a multithread instance while the client exists.
@@ -52,20 +47,10 @@ public class UserThread extends Thread {
                 }
                 String[] message = clientMessage.split("/");
                 String result = new API(message, this.proxy, this.user_id).getMessage();
-                // System.out.println(message);
-                // System.out.println(result);
                 sendMessage(result);
-                // writer.write(result);
-                // writer.flush();
+
             } while (!clientMessage.equals("exit"));
 
-            // server.broadcast(clientMessage);
-            // server.broadcast(Database.getUsersData());
-
-            // server.removeUser(user_id, this);
-            // serverMessage = user_id + " has quitted.";
-            // server.broadcast(serverMessage, this);
-            // server.broadcast(serverMessage);
             removeUser();
             socket.close();
 
@@ -88,8 +73,7 @@ public class UserThread extends Thread {
         String db_user_data = proxy.putUser(data[0], data[1], Integer.parseInt(data[2]));
         String[] db_user_data_array = db_user_data.split(" ");
         String first_element = db_user_data_array[0];
-        // System.out.println(db_user_data_array[0]);
-        // System.out.println(first_element);
+
         this.user_id = Integer.parseInt(first_element);
         this.all_data = db_user_data;
     }
@@ -106,22 +90,6 @@ public class UserThread extends Thread {
         }
         return true;
     }
-    // add new user when connects
-    // void newUser(String clientMessage){
-    // String[] splitData = clientMessage.split("/");
-    // user = new User(user_id, splitData[0], splitData[1], splitData[2]);
-    // Database.usersData.add(user);
-    // }
-    /**
-     * Sends a list of online users to the newly connected user.
-     */
-    // void printUsers() {
-    // if (server.hasUsers()) {
-    // writer.println("Connected users: " + server.getUserNames());
-    // } else {
-    // writer.println("No other users connected");
-    // }
-    // }
 
     /**
      * Sends a message to the client.

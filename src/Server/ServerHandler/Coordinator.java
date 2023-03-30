@@ -13,7 +13,7 @@ import src.Server.Database.DatabaseProxy;
 import java.util.Random;
 
 /*
- * when someone sends a message append to connected_users
+ * 
  */
 
 public class Coordinator {
@@ -43,9 +43,6 @@ public class Coordinator {
         };
     }
 
-    /**
-     * 
-     */
     private void iterator() {
         // if none return
         if (!getConnectedUsers())
@@ -135,31 +132,12 @@ public class Coordinator {
         }
     }
 
-    // get all users id
-    // get groupchat_id: [connected_users]
-    void dummy_data() {
-        // this.connected_users.add(1);
-        // this.connected_users.add(2);
-        // this.connected_users.add(4);
-        // this.connected_users.add(3);
-        // this.connected_users.add(6);
-        // this.connected_users.add(7);
-        // this.connected_users.add(8);
-        // this.connected_users.add(9);
-        // this.connected_users.add(10);
-        // this.connected_users.add(11);
-        // this.connected_users.add(123);
-        // this.connected_users.add(12);
-    }
-
     public static void main(String[] args) {
-        DatabaseProxy proxy = DatabaseProxy.getInstance();
-        new Coordinator(proxy);
-
+        // DatabaseProxy proxy = DatabaseProxy.getInstance();
+        // new Coordinator(proxy);
         // proxy.updateCoordinator(1, 1);
         // coordinator.iterator();
         // coordinator.getConnectedUsers();
-
         // String[] a = coordinator.get_groups_from_not_active_coordinators();
     }
 }
