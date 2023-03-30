@@ -1,19 +1,19 @@
 package src.ClientServer;
-// package ConnectServer.ClientHandler;
 
 import java.net.*;
 import java.io.*;
 
 /**
- * This is the chat client program.
+ * This is the chat client program. It handles the connection of the client
+ * connecting it to a IP and port.
+ * Reference:
+ * https://www.codejava.net/java-se/networking/how-to-create-a-chat-console-application-in-java-using-socket
  */
 public class ChatClient {
     // User data
-    // private int ID;
     public String userName;
     public String hostName;
     public int port;
-    // private InetAddress addr;
 
     public ChatClient(String userName, String hostName, int port) {
         this.userName = userName;
@@ -22,9 +22,11 @@ public class ChatClient {
     }
 
     public void execute() {
+        // establish a connection
         try {
             Socket socket = new Socket(hostName, port);
 
+            // handle the input and output on a different thread
             new WriteThread(socket, this).start();
             new ReadThread(socket, this).start();
 

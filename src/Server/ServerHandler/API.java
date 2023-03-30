@@ -5,6 +5,7 @@ import java.util.Date;
 
 import src.Server.Database.DatabaseProxy;
 
+// Class created to interact with the server via commands 
 public class API {
     private static String[] message;
     private DatabaseProxy proxy;
@@ -26,15 +27,10 @@ public class API {
     }
 
     private String processMessage() {
-        // System.out.println(clientMessage);
-        // for (String msg : message) {
-        // System.out.println(msg);
-        // }
 
         // follows the following syntax -> action/CRUD/...
         String action = message[1];
         // process data using API
-        // writer.print(action);
         switch (action) {
             // put statement
             case "put":
@@ -137,16 +133,7 @@ public class API {
                             // writer.println(e);
                             return "400 messages";
                         }
-                        // case "messagesState":
-                        // try {
-                        // int groupChat_ID = Integer.parseInt(message[3]);
-                        // String messages = this.proxy.getMessageState(groupChat_ID);
-                        // // writer.println(messages);
-                        // return messages;
-                        // } catch (Exception e) {
-                        // // writer.println(e);
-                        // return "400 messagesState";
-                        // }
+
                     default:
                         return "Invalid get statement";
                 }
@@ -173,7 +160,8 @@ public class API {
         }
     }
 
-    String getDate() {
+    // return date
+    private String getDate() {
         Date date = new Date(); // create a new Date object with the current date and time
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm"); // create a SimpleDateFormat object with the
         String formattedDate = sdf.format(date); // format the date using the SimpleDateFormat object
@@ -199,8 +187,8 @@ public class API {
     }
 
     public static void main(String[] args) {
-        DatabaseProxy proxy = DatabaseProxy.getInstance();
-        String[] command;
+        // DatabaseProxy proxy = DatabaseProxy.getInstance();
+        // String[] command;
 
         // CREATE GROUPCHATS
         // command = "/put/newGroupChat".split("/");
@@ -241,8 +229,8 @@ public class API {
         // command = "/put/message/2/Thank you".split("/");
         // new API(command, proxy, 4).getMessage();
 
-        command = "/get/messages/1".split("/");
-        String a = new API(command, proxy, 1).getMessage();
-        System.out.println(a);
+        // command = "/get/messages/1".split("/");
+        // String a = new API(command, proxy, 1).getMessage();
+        // System.out.println(a);
     }
 }

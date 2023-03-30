@@ -42,15 +42,19 @@ public class UserThread extends Thread {
                 // user input
                 clientMessage = reader.readLine();
 
+                // check if its a valid message
                 if (!validateMessage(clientMessage)) {
                     continue;
                 }
+
+                // send data to the API class
                 String[] message = clientMessage.split("/");
                 String result = new API(message, this.proxy, this.user_id).getMessage();
-                sendMessage(result);
+                sendMessage(result); // print result
 
             } while (!clientMessage.equals("exit"));
 
+            // when it gets disconnected remove
             removeUser();
             socket.close();
 

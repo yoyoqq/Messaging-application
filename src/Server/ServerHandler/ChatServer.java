@@ -7,8 +7,9 @@ import java.util.*;
 import src.Server.Database.DatabaseProxy;
 
 /**
- * This is the chat server program.
- * Press Ctrl + C to terminate the program.
+ * This is the chat server program. It handles establishes the port and IP
+ * addres of the server, creates the instance of the coordinator class and
+ * accepts incoming connections from the users.
  */
 public class ChatServer {
     private int port;

@@ -2,6 +2,7 @@ package src.Runner;
 
 import src.ClientServer.ChatClient;
 
+// This class runs the user by specifying the name, IP address and port.
 public class RunUser {
     static String name;
     static String hostname;

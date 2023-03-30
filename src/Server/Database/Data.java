@@ -1,5 +1,6 @@
 package src.Server.Database;
 
+// With the interface we can replicate the database calls in other classes
 public interface Data {
     public static String putUser(String name, String ip, int port) {
         return null;

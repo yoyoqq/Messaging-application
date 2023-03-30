@@ -1,4 +1,4 @@
-package src.Server.Database.Test;
+package src.Server.Test;
 
 import src.Server.Database.Database;
 

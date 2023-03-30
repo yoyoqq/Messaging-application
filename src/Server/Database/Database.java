@@ -3,7 +3,8 @@ package src.Server.Database;
 import java.io.File;
 import java.sql.*;
 
-// https://www.youtube.com/watch?v=0beocykXUag
+// This class creates the database. It is also capable of creating simple Database queries.
+// Refernce: https://www.youtube.com/watch?v=0beocykXUag
 public class Database implements Data {
     static String className = "org.sqlite.JDBC";
     static String url = "jdbc:sqlite:src/Server/Database/Database.db";

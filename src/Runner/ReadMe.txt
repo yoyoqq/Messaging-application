@@ -1,8 +1,3 @@
-Build all the classes in this file 
+This class is responsible of running the server and the client separately.
 
-    RunServer
-        Database
-        Server
-    RunClient
-        User
-        ClientHandler
+Run the Server first and then the user.

@@ -13,41 +13,42 @@ import src.Server.Database.DatabaseProxy;
 import java.util.Random;
 
 /*
- * 
+ * The class manages the coordinator feature. The coordinator is changed automaticaly if the user disconnects by looking all the groupchats.
  */
-
 public class Coordinator {
     private Timer timer;
     private TimerTask task;
-    private HashSet<Integer> connected_users = new HashSet<>();
+    private HashSet<Integer> connected_users = new HashSet<>(); // Observer pattern
     private DatabaseProxy proxy;
-    private int TIMER = 2000;
+    private int TIMER = 2000; // run function every X seconds
 
     public Coordinator(DatabaseProxy proxy) {
         this.proxy = proxy;
-        // dummy_data();
         this.timer = new Timer();
         updateCoodinator(); // Call the method to create and assign a new TimerTask
         timer.schedule(task, 0, this.TIMER); // Pass the task object to the
         // timer.schedule(); // method
     }
 
+    // run every "TIMER" seconds
     private void updateCoodinator() {
         this.task = new TimerTask() {
             @Override
             public void run() {
-                // Code to be executed every 2 seconds
-                // System.out.println(connected_users);
+                // Code to be executed every "TIMER" seconds
                 iterator();
             }
         };
     }
 
+    // Chain of responsibility design pattern. It runs the algorihtm depending on
+    // the current state of the users and groups.
     private void iterator() {
-        // if none return
+        // if none return, no users connected
         if (!getConnectedUsers())
             return;
         String[] groupChat_IDs = get_groups_from_not_active_coordinators();
+        // if all the members are active
         if (groupChat_IDs.length == 0)
             return;
         Map<String, ArrayList<String>> groups_without_coordinator = lookForMembers(groupChat_IDs);
@@ -56,19 +57,17 @@ public class Coordinator {
 
     // get the connected users from the ChatServer
     private boolean getConnectedUsers() {
-        // check every "TIMER" seconds
         connected_users = new HashSet<>();
         for (UserThread user : ChatServer.userThreads) {
             connected_users.add(user.getID());
         }
-        // System.out.println(connected_users);
         if (connected_users.size() == 0) {
             return false;
         }
         return true;
     }
 
-    // get all the groupchats that are not in connected_users
+    // get all the groupchats that dont have an active coordinator
     private String[] get_groups_from_not_active_coordinators() {
         String groups_from_not_active_coordinator = "";
         String groupChats = proxy.getGroupChats(); // string of groupChats
@@ -86,8 +85,7 @@ public class Coordinator {
         return result;
     }
 
-    // is connected
-    // for every groupchat that has no active coordinator assing a new one that it
+    // for every groupchat that has no active coordinator, append it to the Map
     /*
      * @param gropuchat_ID's from non active coordinators
      */
@@ -110,25 +108,18 @@ public class Coordinator {
         return groups_without_coordinator;
     }
 
+    // select a random coordinator from all the inactive groups
     public void selectRandomCoordinator(Map<String, ArrayList<String>> groupData) {
-        // System.out.println(groupData.);
         for (Entry<String, ArrayList<String>> entry : groupData.entrySet()) {
-            // System.out.println(data);
             int gropuchat_ID = Integer.parseInt(entry.getKey());
             ArrayList<String> values = entry.getValue();
-            // System.out.println(gropuchat_ID + " " + values);
             if (values.size() == 0) {
-                // System.out.println("Group " + gropuchat_ID + " does not have any members
-                // active");
                 continue;
             }
             // select random
-            // Random random = new Random();
             int user_id = Integer.parseInt(values.get(new Random().nextInt(values.size())));
-            // System.out.println(values.get(randomIndex));
             proxy.updateCoordinator(gropuchat_ID, user_id);
             System.out.println("Coordinator from group: " + gropuchat_ID + ", changed to user_id: " + user_id);
-            // System.out.println(result);
         }
     }
 

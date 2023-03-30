@@ -1,7 +1,5 @@
 package src.ClientServer;
 
-// package ConnectServer.ClientHandler;
-
 import java.io.*;
 import java.net.*;
 
@@ -29,6 +27,7 @@ public class ReadThread extends Thread {
         }
     }
 
+    // run till the client closes the connection
     public void run() {
         String response;
 

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// This class is responsible of all the database queries. All the calls for the databse must be run here.
 // Singleton pattern
 public class DatabaseProxy implements Data {
     // private constructor
@@ -170,6 +171,7 @@ public class DatabaseProxy implements Data {
         return formattedMessages.toString();
     }
 
+    // format the message for the user
     private String formatMessageReadBy(Map<String, List<List<String>>> map, String messageID) {
         String messageRead = "";
         String messageNotRead = "";
@@ -188,6 +190,7 @@ public class DatabaseProxy implements Data {
         return result;
     }
 
+    // get the state of a gropuchat
     private Map<String, List<List<String>>> getState(int groupChat_ID) {
         String[] messageState = getDatabase().getMessageState(groupChat_ID).split("/");
 
