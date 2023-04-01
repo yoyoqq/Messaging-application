@@ -187,20 +187,20 @@ public class API {
     }
 
     public static void main(String[] args) {
-        // DatabaseProxy proxy = DatabaseProxy.getInstance();
-        // String[] command;
+        DatabaseProxy proxy = DatabaseProxy.getInstance();
+        String[] command;
 
         // CREATE GROUPCHATS
-        // command = "/put/newGroupChat".split("/");
-        // new API(command, proxy, 1).getMessage();
-        // command = "/put/userInGroup/1/2".split("/");
-        // new API(command, proxy, 1).getMessage();
-        // command = "/put/userInGroup/1/3".split("/");
-        // new API(command, proxy, 1).getMessage();
-        // command = "/put/userInGroup/1/4".split("/");
-        // new API(command, proxy, 1).getMessage();
-        // command = "/put/userInGroup/1/5".split("/");
-        // new API(command, proxy, 1).getMessage();
+        command = "/put/newGroupChat".split("/");
+        new API(command, proxy, 1).getMessage();
+        command = "/put/userInGroup/1/2".split("/");
+        new API(command, proxy, 1).getMessage();
+        command = "/put/userInGroup/1/3".split("/");
+        new API(command, proxy, 1).getMessage();
+        command = "/put/userInGroup/1/4".split("/");
+        new API(command, proxy, 1).getMessage();
+        command = "/put/userInGroup/1/5".split("/");
+        new API(command, proxy, 1).getMessage();
 
         // command = "/put/newGroupChat".split("/");
         // new API(command, proxy, 2).getMessage();
@@ -214,7 +214,7 @@ public class API {
         // command = "/put/userInGroup/3/3".split("/");
         // new API(command, proxy, 4).getMessage();
 
-        // PUT MESSAGES INTO GROUPS
+        // // PUT MESSAGES INTO GROUPS
         // command = "/put/message/1/Hi, I am the coordinator".split("/");
         // new API(command, proxy, 1).getMessage();
         // command = "/put/message/1/Hello Alice, I am Bob nice to meet you".split("/");

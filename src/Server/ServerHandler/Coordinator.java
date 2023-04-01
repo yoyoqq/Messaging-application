@@ -36,7 +36,11 @@ public class Coordinator {
             @Override
             public void run() {
                 // Code to be executed every "TIMER" seconds
-                iterator();
+                try {
+                    iterator();
+                } catch (Exception e) {
+
+                }
             }
         };
     }

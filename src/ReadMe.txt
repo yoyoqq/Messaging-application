@@ -14,6 +14,9 @@ documentation
 
 The Diagram folder shows how the overall system was implemented
 
+Client side -> ClientServer folder
+Server side -> Server folder
+
 DEPENDENCIES
     SQLITE 3
     JUNIT 
@@ -25,7 +28,7 @@ Use the "Runner" folder
 3. Use the commands below
 
 COMMANDS FOR THE USER
- * GET
+ * GET commands
  * /get/id -> own ID
  * /get/users -> all the users
  * /get/connectedUsers -> all connected users
@@ -35,11 +38,13 @@ COMMANDS FOR THE USER
  * /get/name/user_ID -> get the name of the ID
  * /get/messages/groupChat_ID -> get messages from a GC
  * 
- * PUT
+ * PUT commands
  * /put/newGroupChat -> create groupchat
  * /put/userInGroup/groupChatID/user_ID -> add user into groupchat
  * /put/message/groupChat_ID -> add a message in a groupchat
  *
+ * /kickUser/gropuChat/userID
+ * 
  * /quit
  *
  * /help
